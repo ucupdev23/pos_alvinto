@@ -1,6 +1,6 @@
 RewriteEngine On
-RewriteBase /pos_alvinto/
-# RewriteBase /
+# RewriteBase /pos_alvinto/
+RewriteBase /
 
 # Redirect ke index.php jika file/folder tidak ditemukan
 RewriteCond %{REQUEST_FILENAME} !-f
