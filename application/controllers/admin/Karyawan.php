@@ -1,24 +1,26 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Karyawan extends MY_Controller {
+class Karyawan extends MY_Controller
+{
 
     public function __construct()
     {
         parent::__construct();
         $this->require_login('admin');
         $this->load->model('Karyawan_model');
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     public function index()
     {
         $data = [
-            'title'        => 'Data Karyawan',
-            'app_title'    => 'Admin Alvinto',
+            'title' => 'Data Karyawan',
+            'app_title' => 'Admin Alvinto',
             'app_subtitle' => 'Karyawan',
-            'page'         => 'admin/karyawan/index',
-            'bottom_nav'   => $this->admin_bottom_nav('master'),
-            'page_data'    => [
+            'page' => 'admin/karyawan/index',
+            'bottom_nav' => $this->admin_bottom_nav('master'),
+            'page_data' => [
                 'list' => $this->Karyawan_model->get_all_active()
             ]
         ];
@@ -29,13 +31,13 @@ class Karyawan extends MY_Controller {
     public function tambah()
     {
         $data = [
-            'title'        => 'Tambah Karyawan',
-            'app_title'    => 'Admin Alvinto',
+            'title' => 'Tambah Karyawan',
+            'app_title' => 'Admin Alvinto',
             'app_subtitle' => 'Tambah Karyawan',
-            'page'         => 'admin/karyawan/form',
-            'bottom_nav'   => $this->admin_bottom_nav('master'),
-            'page_data'    => [
-                'mode'     => 'tambah',
+            'page' => 'admin/karyawan/form',
+            'bottom_nav' => $this->admin_bottom_nav('master'),
+            'page_data' => [
+                'mode' => 'tambah',
                 'karyawan' => null
             ]
         ];
@@ -51,13 +53,13 @@ class Karyawan extends MY_Controller {
         }
 
         $data = [
-            'title'        => 'Edit Karyawan',
-            'app_title'    => 'Admin Alvinto',
+            'title' => 'Edit Karyawan',
+            'app_title' => 'Admin Alvinto',
             'app_subtitle' => 'Edit Karyawan',
-            'page'         => 'admin/karyawan/form',
-            'bottom_nav'   => $this->admin_bottom_nav('master'),
-            'page_data'    => [
-                'mode'     => 'edit',
+            'page' => 'admin/karyawan/form',
+            'bottom_nav' => $this->admin_bottom_nav('master'),
+            'page_data' => [
+                'mode' => 'edit',
                 'karyawan' => $karyawan
             ]
         ];
@@ -68,24 +70,27 @@ class Karyawan extends MY_Controller {
     public function simpan()
     {
         $mode = $this->input->post('mode');
-        $id   = $this->input->post('id');
+        $id = $this->input->post('id');
 
         $data = [
-            'nama'   => $this->input->post('nama', TRUE),
-            'no_hp'  => $this->input->post('no_hp', TRUE),
+            'nama' => $this->input->post('nama', TRUE),
+            'no_hp' => $this->input->post('no_hp', TRUE),
             'status' => 1
         ];
 
         if ($mode == 'tambah') {
             if ($this->Karyawan_model->insert($data)) {
                 $this->session->set_flashdata('success', 'Karyawan berhasil ditambahkan.');
-            } else {
+            }
+            else {
                 $this->session->set_flashdata('error', 'Gagal menambahkan karyawan.');
             }
-        } else {
+        }
+        else {
             if ($this->Karyawan_model->update($id, $data)) {
                 $this->session->set_flashdata('success', 'Karyawan berhasil diupdate.');
-            } else {
+            }
+            else {
                 $this->session->set_flashdata('error', 'Gagal mengupdate karyawan.');
             }
         }

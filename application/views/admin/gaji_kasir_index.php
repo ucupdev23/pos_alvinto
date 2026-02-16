@@ -5,13 +5,15 @@
             <div class="alert alert-success py-2 mb-2">
                 <?= $this->session->flashdata('success'); ?>
             </div>
-        <?php endif; ?>
+        <?php
+endif; ?>
 
         <?php if ($this->session->flashdata('error')): ?>
             <div class="alert alert-danger py-2 mb-2">
                 <?= $this->session->flashdata('error'); ?>
             </div>
-        <?php endif; ?>
+        <?php
+endif; ?>
 
         <!-- KALKULATOR SALDO HARIAN KASIR -->
         <div class="card card-app mb-2">
@@ -27,7 +29,8 @@
                                     <option value="<?= $k->id; ?>" <?= $kasir_hari_id == $k->id ? 'selected' : ''; ?>>
                                         <?= $k->nama; ?>
                                     </option>
-                                <?php endforeach; ?>
+                                <?php
+endforeach; ?>
                             </select>
                         </div>
                         <div class="col-6">
@@ -53,15 +56,15 @@
                         <strong>Ringkasan Kasir</strong><br>
                         Kasir:
                         <?php
-                        $nama_kasir = '';
-                        foreach ($kasir_list as $k) {
-                            if ($k->id == $kasir_hari_id) {
-                                $nama_kasir = $k->nama;
-                                break;
-                            }
-                        }
-                        echo $nama_kasir;
-                        ?>
+    $nama_kasir = '';
+    foreach ($kasir_list as $k) {
+        if ($k->id == $kasir_hari_id) {
+            $nama_kasir = $k->nama;
+            break;
+        }
+    }
+    echo $nama_kasir;
+?>
                         <br>
                         Tanggal: <?= date('d/m/Y', strtotime($tanggal_hari)); ?>
                     </p>
@@ -104,19 +107,23 @@
                                     <td class="text-end">Rp <?= number_format($rk['omzet'], 0, ',', '.'); ?></td>
                                     <td class="text-end">Rp <?= number_format($rk['total_gaji'], 0, ',', '.'); ?></td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php
+        endforeach; ?>
                             </tbody>
                         </table>
-                    <?php endif; ?>
+                    <?php
+    endif; ?>
 
                     <p class="text-muted mb-0" style="font-size: 11px;">
                         Owner bisa pakai angka <strong>Sisa Dana</strong> sebagai acuan untuk menentukan gaji kasir di tanggal tersebut.
                     </p>
-                <?php elseif ($kasir_hari_id && !$rekap_harian): ?>
+                <?php
+elseif ($kasir_hari_id && !$rekap_harian): ?>
                     <p class="text-muted mb-0" style="font-size: 11px;">
                         Tidak ada transaksi untuk kasir dan tanggal yang dipilih.
                     </p>
-                <?php endif; ?>
+                <?php
+endif; ?>
             </div>
         </div>
 
@@ -132,34 +139,46 @@
                     </div>
                     <div class="mb-2">
                         <label class="form-label small">Kasir</label>
-                        <select name="kasir_id" class="form-select form-select-sm" required>
-                            <option value="">- Pilih Kasir -</option>
-                            <?php foreach ($kasir_list as $k): ?>
-                                <option value="<?= $k->id; ?>" 
-                                    <?= ($kasir_hari_id == $k->id ? 'selected' : ''); ?>>
-                                    <?= $k->nama; ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+                        <?php if ($kasir_hari_id && $rekap_harian): ?>
+                            <?php
+    $nama_kasir_selected = '';
+    foreach ($kasir_list as $k) {
+        if ($k->id == $kasir_hari_id) {
+            $nama_kasir_selected = $k->nama;
+            break;
+        }
+    }
+?>
+                            <input type="text" class="form-control form-control-sm" value="<?= $nama_kasir_selected; ?>" readonly>
+                            <input type="hidden" name="kasir_id" value="<?= $kasir_hari_id; ?>">
+                            <small class="text-muted">Kasir otomatis dari kalkulator saldo harian</small>
+                        <?php
+else: ?>
+                            <input type="text" class="form-control form-control-sm" value="Pilih kasir di kalkulator saldo harian dulu" readonly style="background-color: #f8f9fa;">
+                            <small class="text-danger">Harus hitung saldo harian dahulu</small>
+                        <?php
+endif; ?>
                     </div>
                     <div class="mb-2">
                         <label class="form-label small">Jumlah Gaji (Rp)</label>
                         <input type="number" name="jumlah" class="form-control form-control-sm"
                                min="0"
-                               placeholder="<?= $rekap_harian ? 'Sisa dana: Rp '.number_format($rekap_harian['saldo'], 0, ',', '.') : ''; ?>"
+                               placeholder="<?= $rekap_harian ? 'Sisa dana: Rp ' . number_format($rekap_harian['saldo'], 0, ',', '.') : ''; ?>"
                                required>
                         <?php if ($rekap_harian): ?>
                             <small class="text-muted">
                                 Sisa dana hari ini: <strong>Rp <?= number_format($rekap_harian['saldo'], 0, ',', '.'); ?></strong>
                             </small>
-                        <?php endif; ?>
+                        <?php
+endif; ?>
                     </div>
                     <div class="mb-2">
                         <label class="form-label small">Catatan (opsional)</label>
                         <input type="text" name="catatan" class="form-control form-control-sm"
                                placeholder="Misal: gaji shift pagi">
                     </div>
-                    <button type="submit" class="btn btn-dark btn-sm w-100 btn-app mt-1">
+                    <button type="submit" class="btn btn-dark btn-sm w-100 btn-app mt-1" 
+                        <?=(!$kasir_hari_id || !$rekap_harian) ? 'disabled' : ''; ?>>
                         <i class="bi bi-save me-1"></i> Simpan Gaji Kasir
                     </button>
                 </form>
@@ -190,7 +209,8 @@
                                     <option value="<?= $k->id; ?>" <?= $kasir_id_filter == $k->id ? 'selected' : ''; ?>>
                                         <?= $k->nama; ?>
                                     </option>
-                                <?php endforeach; ?>
+                                <?php
+endforeach; ?>
                             </select>
                         </div>
                         <div class="col-3 d-flex align-items-end">
@@ -210,7 +230,8 @@
                     <p class="text-center text-muted py-3 mb-0" style="font-size: 12px;">
                         Belum ada data gaji kasir pada periode ini.
                     </p>
-                <?php else: ?>
+                <?php
+else: ?>
                     <div style="max-height: 300px; overflow-y: auto;">
                         <table class="table table-sm mb-0" style="font-size: 11px;">
                             <thead class="table-light">
@@ -219,6 +240,7 @@
                                 <th>Kasir</th>
                                 <th class="text-end">Jumlah</th>
                                 <th>Catatan</th>
+                                <th class="text-center">Aksi</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -228,14 +250,46 @@
                                     <td><?= $g->nama_kasir; ?></td>
                                     <td class="text-end">Rp <?= number_format($g->jumlah, 0, ',', '.'); ?></td>
                                     <td><?= $g->catatan; ?></td>
+                                    <td class="text-center">
+                                        <button onclick="resendSlip(<?= $g->id; ?>)" 
+                                            class="btn btn-sm btn-outline-success" 
+                                            style="font-size: 10px; padding: 2px 6px;"
+                                            title="Kirim ulang slip ke WA">
+                                            <i class="bi bi-whatsapp"></i>
+                                        </button>
+                                    </td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php
+    endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-                <?php endif; ?>
+                <?php
+endif; ?>
             </div>
         </div>
 
     </div>
 </div>
+
+<script>
+function resendSlip(gajiId) {
+    if (!confirm('Kirim ulang slip gaji ke WhatsApp?')) {
+        return;
+    }
+
+    fetch('<?= site_url('admin/gaji_kasir/resend_slip/'); ?>' + gajiId)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status) {
+                alert('✓ ' + data.message);
+            } else {
+                alert('✗ ' + data.message);
+            }
+        })
+        .catch(error => {
+            alert('✗ Terjadi kesalahan saat mengirim slip');
+            console.error('Error:', error);
+        });
+}
+</script>

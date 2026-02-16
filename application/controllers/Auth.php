@@ -8,6 +8,7 @@ class Auth extends CI_Controller
     {
         parent::__construct();
         $this->load->model('User_model');
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     public function index()

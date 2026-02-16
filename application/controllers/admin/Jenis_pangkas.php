@@ -1,24 +1,26 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Jenis_pangkas extends MY_Controller {
+class Jenis_pangkas extends MY_Controller
+{
 
     public function __construct()
     {
         parent::__construct();
         $this->require_login('admin');
         $this->load->model('Jenis_pangkas_model');
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     public function index()
     {
         $data = [
-            'title'        => 'Jenis Pangkas',
-            'app_title'    => 'Admin Alvinto',
+            'title' => 'Jenis Pangkas',
+            'app_title' => 'Admin Alvinto',
             'app_subtitle' => 'Jenis Pangkas',
-            'page'         => 'admin/jenis_pangkas/index',
-            'bottom_nav'   => $this->admin_bottom_nav('master'),
-            'page_data'    => [
+            'page' => 'admin/jenis_pangkas/index',
+            'bottom_nav' => $this->admin_bottom_nav('master'),
+            'page_data' => [
                 'list' => $this->Jenis_pangkas_model->get_all_active()
             ]
         ];
@@ -29,13 +31,13 @@ class Jenis_pangkas extends MY_Controller {
     public function tambah()
     {
         $data = [
-            'title'        => 'Tambah Jenis Pangkas',
-            'app_title'    => 'Admin Alvinto',
+            'title' => 'Tambah Jenis Pangkas',
+            'app_title' => 'Admin Alvinto',
             'app_subtitle' => 'Tambah Jenis Pangkas',
-            'page'         => 'admin/jenis_pangkas/form',
-            'bottom_nav'   => $this->admin_bottom_nav('master'),
-            'page_data'    => [
-                'mode'  => 'tambah',
+            'page' => 'admin/jenis_pangkas/form',
+            'bottom_nav' => $this->admin_bottom_nav('master'),
+            'page_data' => [
+                'mode' => 'tambah',
                 'jenis' => null
             ]
         ];
@@ -51,13 +53,13 @@ class Jenis_pangkas extends MY_Controller {
         }
 
         $data = [
-            'title'        => 'Edit Jenis Pangkas',
-            'app_title'    => 'Admin Alvinto',
+            'title' => 'Edit Jenis Pangkas',
+            'app_title' => 'Admin Alvinto',
             'app_subtitle' => 'Edit Jenis Pangkas',
-            'page'         => 'admin/jenis_pangkas/form',
-            'bottom_nav'   => $this->admin_bottom_nav('master'),
-            'page_data'    => [
-                'mode'  => 'edit',
+            'page' => 'admin/jenis_pangkas/form',
+            'bottom_nav' => $this->admin_bottom_nav('master'),
+            'page_data' => [
+                'mode' => 'edit',
                 'jenis' => $jenis
             ]
         ];
@@ -68,11 +70,11 @@ class Jenis_pangkas extends MY_Controller {
     public function simpan()
     {
         $mode = $this->input->post('mode');
-        $id   = $this->input->post('id');
+        $id = $this->input->post('id');
 
         $data = [
-            'nama'   => $this->input->post('nama', TRUE),
-            'harga'  => (int) $this->input->post('harga', TRUE),
+            'nama' => $this->input->post('nama', TRUE),
+            'harga' => (int)$this->input->post('harga', TRUE),
             'keterangan' => $this->input->post('keterangan', TRUE),
             'status' => 1
         ];
@@ -80,13 +82,16 @@ class Jenis_pangkas extends MY_Controller {
         if ($mode == 'tambah') {
             if ($this->Jenis_pangkas_model->insert($data)) {
                 $this->session->set_flashdata('success', 'Jenis pangkas berhasil ditambahkan.');
-            } else {
+            }
+            else {
                 $this->session->set_flashdata('error', 'Gagal menambahkan jenis pangkas.');
             }
-        } else {
+        }
+        else {
             if ($this->Jenis_pangkas_model->update($id, $data)) {
                 $this->session->set_flashdata('success', 'Jenis pangkas berhasil diupdate.');
-            } else {
+            }
+            else {
                 $this->session->set_flashdata('error', 'Gagal mengupdate jenis pangkas.');
             }
         }

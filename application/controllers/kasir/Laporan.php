@@ -10,6 +10,7 @@ class Laporan extends MY_Controller
         $this->require_login('kasir');
         $this->load->model('Karyawan_model');
         $this->load->model('Transaksi_model');
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     public function index()

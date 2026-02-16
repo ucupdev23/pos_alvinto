@@ -12,6 +12,7 @@ class Profil extends MY_Controller
             redirect('auth');
         }
         $this->load->model('User_model');
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     public function index()

@@ -14,11 +14,15 @@ yang belum:
 8. alertnya pake swweet alert 2 <akhiran>
 9. ✅ uang makan itu harus bisa diatur di admin [done]
 10. ✅ tambahkan kolom quantity di kasir [done]
-11. pagination di menu laporan [done]
+11. ✅ pagination di menu laporan [done]
 12. ✅ cetak slip gaji diubah menjadi kirim slip gaji ke wa [done]
 13. ✅ belum ada ganti password [done]
 14. ✅ belum ada reset password [done]
 15. ✅ tabel users belum ada no hp [done]
+16. ✅ 404 dan 403 belum di custom [done]
+17. ✅cek penggajian kasir [done]
+18. export excel laporan transaksi
+19. keuntungan (dikurangin gaji karyawan dan kasir) belum ada di admin
 
 pertanyaan:
 
@@ -27,8 +31,8 @@ pertanyaan:
 
 info akses :
 
-1. admin | owner - admin123
-2. kasir | jaka - admin123
+1. admin | admin - 12345678
+2. kasir | laras - 12345678
 
 
 

@@ -23,7 +23,8 @@
                                     <option value="<?= $k->id; ?>" <?= $kasir_id == $k->id ? 'selected' : ''; ?>>
                                         <?= $k->nama; ?>
                                     </option>
-                                <?php endforeach; ?>
+                                <?php
+endforeach; ?>
                             </select>
                         </div>
                         <div class="col-6">
@@ -34,7 +35,8 @@
                                     <option value="<?= $ky->id; ?>" <?= $karyawan_id == $ky->id ? 'selected' : ''; ?>>
                                         <?= $ky->nama; ?>
                                     </option>
-                                <?php endforeach; ?>
+                                <?php
+endforeach; ?>
                             </select>
                         </div>
                         <div class="col-6">
@@ -45,7 +47,8 @@
                                     <option value="<?= $m->id; ?>" <?= $metode_id == $m->id ? 'selected' : ''; ?>>
                                         <?= $m->nama; ?>
                                     </option>
-                                <?php endforeach; ?>
+                                <?php
+endforeach; ?>
                             </select>
                         </div>
                         <div class="col-6 d-flex align-items-end gap-1">
@@ -61,6 +64,20 @@
                     </div>
                 </form>
             </div>
+        </div>
+
+        <div class="d-flex gap-2 mb-2 justify-content-end">
+            <?php
+$params = $_GET;
+unset($params['page']);
+$query_string = http_build_query($params);
+?>
+            <a href="<?= site_url('admin/laporan/export_excel?' . $query_string); ?>" target="_blank" class="btn btn-success btn-sm btn-app">
+                <i class="bi bi-file-earmark-excel me-1"></i> Excel
+            </a>
+            <a href="<?= site_url('admin/laporan/export_pdf?' . $query_string); ?>" target="_blank" class="btn btn-danger btn-sm btn-app">
+                <i class="bi bi-file-earmark-pdf me-1"></i> PDF
+            </a>
         </div>
 
         <?php if ($rekap): ?>
@@ -84,7 +101,8 @@
                     </table>
                 </div>
             </div>
-        <?php endif; ?>
+        <?php
+endif; ?>
 
         <div class="card card-app">
             <div class="card-body p-0">
@@ -92,11 +110,10 @@
                     <p class="text-center text-muted py-3 mb-0" style="font-size: 12px;">
                         Tidak ada transaksi pada periode & filter ini.
                     </p>
-                <?php else: ?>
+                <?php
+else: ?>
                     <div style="max-height: 380px; overflow-y: auto;">
-                        <?php
-$start = $offset + 1;
-$end   = min($offset + $per_page, $total_rows);
+                        <?php    $start = $offset + 1;    $end = min($offset + $per_page, $total_rows);
 ?>
 
 <p class="text-muted px-2 pt-2 mb-1" style="font-size:11px;">
@@ -126,15 +143,18 @@ $end   = min($offset + $per_page, $total_rows);
                                         Rp <?= number_format($t->harga, 0, ',', '.'); ?>
                                     </td>
                                 </tr>
-                            <?php endforeach; ?>
+                            <?php
+    endforeach; ?>
                             </tbody>
                         </table>
                         <?php if (!empty($pagination)): ?>
     <?= $pagination; ?>
-<?php endif; ?>
+<?php
+    endif; ?>
 
                     </div>
-                <?php endif; ?>
+                <?php
+endif; ?>
             </div>
         </div>
 

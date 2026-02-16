@@ -1,24 +1,26 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class More extends MY_Controller {
+class More extends MY_Controller
+{
 
     public function __construct()
     {
         parent::__construct();
         $this->require_login('admin');
         $this->load->model('User_model');
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     public function index()
     {
         $data = [
-            'title'        => 'Menu Lainnya',
-            'app_title'    => 'Admin Alvinto',
+            'title' => 'Menu Lainnya',
+            'app_title' => 'Admin Alvinto',
             'app_subtitle' => 'Lainnya',
-            'page'         => 'admin/more_index',
-            'bottom_nav'   => $this->admin_bottom_nav('more'),
-            'page_data'    => []
+            'page' => 'admin/more_index',
+            'bottom_nav' => $this->admin_bottom_nav('more'),
+            'page_data' => []
         ];
 
         $this->load->view('layouts/mobile', $data);
