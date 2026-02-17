@@ -42,4 +42,18 @@ class Gaji_kasir_model extends CI_Model
         $this->db->where('gaji_kasir.id', $id);
         return $this->db->get()->row();
     }
+
+    public function get_total_gaji_kasir_by_date($date, $month = null, $year = null)
+    {
+        $this->db->select_sum('jumlah');
+        if ($date) {
+            $this->db->where('tanggal', $date);
+        }
+        if ($month && $year) {
+            $this->db->where('MONTH(tanggal)', $month);
+            $this->db->where('YEAR(tanggal)', $year);
+        }
+        $result = $this->db->get('gaji_kasir')->row();
+        return $result ? (int)$result->jumlah : 0;
+    }
 }

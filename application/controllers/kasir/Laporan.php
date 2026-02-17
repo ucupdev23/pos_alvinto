@@ -68,7 +68,10 @@ class Laporan extends MY_Controller
             redirect('kasir/laporan?karyawan_id=' . $karyawan_id . '&tanggal=' . $tanggal);
         }
 
-        // 2. Format Pesan WhatsApp
+        // 2. Simpan history gaji (jika belum ada)
+        $this->Transaksi_model->save_gaji_if_not_exists($karyawan_id, $tanggal);
+
+        // 3. Format Pesan WhatsApp
         $tgl_indo = date('d/m/Y', strtotime($tanggal));
         $omzet = number_format($slip['total_omzet'], 0, ',', '.');
         $upah = number_format($slip['upah'], 0, ',', '.');

@@ -57,12 +57,21 @@
             padding: 12px;
             overflow-y: auto;
             background: #e5e7eb;
+            padding-bottom: 80px; /* Space for fixed bottom nav */
         }
 
         .app-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
             border-top: 1px solid #e5e7eb;
             background: #ffffff;
             padding: 4px 0;
+            z-index: 1050;
+            padding-bottom: env(safe-area-inset-bottom); /* Support for iPhone X+ home indicator */
         }
 
         .bottom-nav-inner {

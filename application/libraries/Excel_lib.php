@@ -77,37 +77,45 @@ class Excel_lib
         exit;
     }
 
-    public function export_laporan_transaksi($laporan, $tanggal_mulai, $tanggal_selesai)
+    public function export_laporan_transaksi($laporan, $periode_str)
     {
         // buat objek baru
         $excel = new PHPExcel();
         $excel->getProperties()
-            ->setCreator('Pos Alvinto')
-            ->setTitle("Laporan Transaksi");
+            ->setCreator('POS Alvinto')
+            ->setTitle("Laporan Transaksi $periode_str");
 
         $sheet = $excel->setActiveSheetIndex(0);
 
         // Judul
-        $sheet->setCellValue('A1', "Laporan Transaksi");
+        $sheet->setCellValue('A1', "Laporan Transaksi Periode $periode_str");
         $sheet->mergeCells('A1:G1');
-        $sheet->setCellValue('A2', "Periode: " . date('d/m/Y', strtotime($tanggal_mulai)) . " - " . date('d/m/Y', strtotime($tanggal_selesai)));
-        $sheet->mergeCells('A2:G2');
+        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
-        // Header di baris 4
-        $sheet->setCellValue('A4', 'NO');
-        $sheet->setCellValue('B4', 'TANGGAL');
-        $sheet->setCellValue('C4', 'KASIR');
-        $sheet->setCellValue('D4', 'KARYAWAN');
-        $sheet->setCellValue('E4', 'JENIS PANGKAS');
-        $sheet->setCellValue('F4', 'METODE BAYAR');
-        $sheet->setCellValue('G4', 'HARGA');
+        // Header di baris 3
+        $headers = [
+            'A' => 'No',
+            'B' => 'Tanggal',
+            'C' => 'Kasir',
+            'D' => 'Karyawan',
+            'E' => 'Jenis Pangkas',
+            'F' => 'Metode Pembayaran',
+            'G' => 'Harga'
+        ];
 
-        // Bold header
-        $sheet->getStyle('A4:G4')->getFont()->setBold(true);
+        foreach ($headers as $col => $text) {
+            $sheet->setCellValue($col . '3', $text);
+            $sheet->getStyle($col . '3')->getFont()->setBold(true);
+            $sheet->getStyle($col . '3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+            $sheet->getStyle($col . '3')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+        }
 
-        // Isi data mulai baris 5
-        $rowNum = 5;
+        // Isi data mulai baris 4
+        $rowNum = 4;
         $no = 1;
+        $total_omzet = 0;
+
         foreach ($laporan as $row) {
             $sheet->setCellValue('A' . $rowNum, $no++);
             $sheet->setCellValue('B' . $rowNum, date('d/m/Y H:i', strtotime($row->tanggal)));
@@ -116,9 +124,29 @@ class Excel_lib
             $sheet->setCellValue('E' . $rowNum, $row->jenis_pangkas);
             $sheet->setCellValue('F' . $rowNum, $row->metode_bayar);
             $sheet->setCellValue('G' . $rowNum, $row->harga);
+
+            // Format Harga
             $sheet->getStyle('G' . $rowNum)->getNumberFormat()->setFormatCode('#,##0');
+
+            // Border per baris
+            $sheet->getStyle('A' . $rowNum . ':G' . $rowNum)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+
+            // Alignment center untuk No dan Tanggal
+            $sheet->getStyle('A' . $rowNum . ':B' . $rowNum)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+            $total_omzet += $row->harga;
             $rowNum++;
         }
+
+        // Baris Total
+        $sheet->setCellValue('A' . $rowNum, 'TOTAL');
+        $sheet->mergeCells('A' . $rowNum . ':F' . $rowNum);
+        $sheet->setCellValue('G' . $rowNum, $total_omzet);
+
+        $sheet->getStyle('A' . $rowNum . ':G' . $rowNum)->getFont()->setBold(true);
+        $sheet->getStyle('A' . $rowNum . ':G' . $rowNum)->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+        $sheet->getStyle('G' . $rowNum)->getNumberFormat()->setFormatCode('#,##0');
+        $sheet->getStyle('A' . $rowNum)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
         // Biar kolom auto lebar
         foreach (range('A', 'G') as $col) {
@@ -129,7 +157,7 @@ class Excel_lib
         $sheet->setTitle('Laporan Transaksi');
 
         // Output ke browser sebagai .xlsx beneran
-        $filename = "laporan_transaksi_" . date('YmdHis') . ".xlsx";
+        $filename = "Laporan_Transaksi_" . date('YmdHis') . ".xlsx";
 
         // bersihkan output buffer kalau ada
         if (ob_get_length()) {

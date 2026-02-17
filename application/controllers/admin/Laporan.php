@@ -108,7 +108,7 @@ class Laporan extends MY_Controller
         $karyawan_id = $this->input->get('karyawan_id');
         $metode_id = $this->input->get('metode_id');
 
-        $laporan = $this->Transaksi_model->get_laporan_transaksi(
+        $data['laporan'] = $this->Transaksi_model->get_laporan_transaksi(
             $tanggal_mulai,
             $tanggal_selesai,
             $kasir_id,
@@ -116,8 +116,15 @@ class Laporan extends MY_Controller
             $metode_id
         );
 
-        $this->load->library('Excel_lib');
-        $this->excel_lib->export_laporan_transaksi($laporan, $tanggal_mulai, $tanggal_selesai);
+        $data['tanggal_mulai'] = $tanggal_mulai;
+        $data['tanggal_selesai'] = $tanggal_selesai;
+
+        $filename = "Laporan_Transaksi_" . date('YmdHis') . ".xls";
+
+        header("Content-type: application/vnd-ms-excel");
+        header("Content-Disposition: attachment; filename=$filename");
+
+        $this->load->view('admin/excel', $data);
     }
 
 

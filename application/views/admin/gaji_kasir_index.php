@@ -135,7 +135,7 @@ endif; ?>
                     <div class="mb-2">
                         <label class="form-label small">Tanggal</label>
                         <input type="date" name="tanggal" class="form-control form-control-sm"
-                               value="<?= $tanggal_hari; ?>" required>
+                               value="<?= $tanggal_hari; ?>" required readonly style="background-color: #f8f9fa;">
                     </div>
                     <div class="mb-2">
                         <label class="form-label small">Kasir</label>
@@ -166,9 +166,10 @@ endif; ?>
                                placeholder="<?= $rekap_harian ? 'Sisa dana: Rp ' . number_format($rekap_harian['saldo'], 0, ',', '.') : ''; ?>"
                                required>
                         <?php if ($rekap_harian): ?>
-                            <small class="text-muted">
-                                Sisa dana hari ini: <strong>Rp <?= number_format($rekap_harian['saldo'], 0, ',', '.'); ?></strong>
-                            </small>
+                            <div class="alert alert-warning py-2 mt-2" role="alert">
+                                <i class="bi bi-exclamation-circle me-1"></i>
+                                Sisa saldo tersedia: <strong>Rp <?= number_format($rekap_harian['saldo'], 0, ',', '.'); ?></strong>
+                            </div>
                         <?php
 endif; ?>
                     </div>

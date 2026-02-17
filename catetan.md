@@ -6,7 +6,7 @@ yang belum:
 
 1. ✅ tombol logout di admin dan kasir [done]
 2. ✅ tombol reset di admin di menu laporan [done]
-3. kasir yang sudah digaji tidak bisa digaji lagi
+3. ✅ kasir yang sudah digaji tidak bisa digaji lagi [done]
 4. ✅ crud karyawan, untuk delete itu hard delete aja <soft delet aja jadinya> `jangan tampil di ui` [done]
 5. ✅ crud jenis pangkas, untuk delete itu hard delete aja <soft delet aja jadinya> `jangan tampil di ui` [done]
 6. ✅ crud metode bayar, untuk delete itu hard delete aja <soft delet aja jadinya> `jangan tampil di ui` [done]
@@ -20,13 +20,14 @@ yang belum:
 14. ✅ belum ada reset password [done]
 15. ✅ tabel users belum ada no hp [done]
 16. ✅ 404 dan 403 belum di custom [done]
-17. ✅cek penggajian kasir [done]
-18. export excel laporan transaksi
-19. keuntungan (dikurangin gaji karyawan dan kasir) belum ada di admin
+17. ✅ cek penggajian kasir [done]
+18. export excel laporan transaksi <belum beres>
+19. ✅ keuntungan (dikurangin gaji karyawan dan kasir) belum ada di admin, di dashboard [done]
+20. 
 
 pertanyaan:
 
-1. kalau karyawan diinput dua kasir yang berbeda, apakah tetep diitung dari total nyukur? harusnya iya, bukan diliat dari si kasir
+1. ✅ kalau karyawan diinput dua kasir yang berbeda, apakah tetep diitung dari total nyukur? harusnya iya, bukan diliat dari si kasir <sudah beres> [done]
 2. terus untuk kasir, diliat dari berapa banyak yang dia inputkan
 
 info akses :
