@@ -21,7 +21,7 @@ yang belum:
 15. ✅ tabel users belum ada no hp [done]
 16. ✅ 404 dan 403 belum di custom [done]
 17. ✅ cek penggajian kasir [done]
-18. export excel laporan transaksi <belum beres>
+18. ✅ export excel laporan transaksi [done]
 19. ✅ keuntungan (dikurangin gaji karyawan dan kasir) belum ada di admin, di dashboard [done]
 20. 
 

@@ -12,6 +12,7 @@ class Laporan extends MY_Controller
         $this->load->model('User_model');
         $this->load->model('Karyawan_model');
         $this->load->model('Metode_pembayaran_model');
+        $this->load->library('Excel_lib');
         date_default_timezone_set('Asia/Jakarta');
     }
 
@@ -108,7 +109,7 @@ class Laporan extends MY_Controller
         $karyawan_id = $this->input->get('karyawan_id');
         $metode_id = $this->input->get('metode_id');
 
-        $data['laporan'] = $this->Transaksi_model->get_laporan_transaksi(
+        $laporan = $this->Transaksi_model->get_laporan_transaksi(
             $tanggal_mulai,
             $tanggal_selesai,
             $kasir_id,
@@ -116,15 +117,11 @@ class Laporan extends MY_Controller
             $metode_id
         );
 
-        $data['tanggal_mulai'] = $tanggal_mulai;
-        $data['tanggal_selesai'] = $tanggal_selesai;
+        // Format periode string for the report title
+        $periode_str = date('d M Y', strtotime($tanggal_mulai)) . ' - ' . date('d M Y', strtotime($tanggal_selesai));
 
-        $filename = "Laporan_Transaksi_" . date('YmdHis') . ".xls";
-
-        header("Content-type: application/vnd-ms-excel");
-        header("Content-Disposition: attachment; filename=$filename");
-
-        $this->load->view('admin/excel', $data);
+        // Use the library to generate and download Excel
+        $this->excel_lib->export_laporan_transaksi($laporan, $periode_str);
     }
 
 
