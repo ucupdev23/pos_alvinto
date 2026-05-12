@@ -56,4 +56,20 @@ class Gaji_kasir_model extends CI_Model
         $result = $this->db->get('gaji_kasir')->row();
         return $result ? (int)$result->jumlah : 0;
     }
+
+    public function delete($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->delete('gaji_kasir');
+    }
+
+    public function get_summary_by_periode($tanggal_mulai, $tanggal_selesai, $kasir_id)
+    {
+        $this->db->select('SUM(uang_makan) as total_uang_makan, SUM(jumlah) as total_semua');
+        $this->db->from('gaji_kasir');
+        $this->db->where('tanggal >=', $tanggal_mulai);
+        $this->db->where('tanggal <=', $tanggal_selesai);
+        $this->db->where('kasir_id', $kasir_id);
+        return $this->db->get()->row();
+    }
 }

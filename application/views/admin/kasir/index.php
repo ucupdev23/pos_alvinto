@@ -34,6 +34,7 @@
                             <th>Nama</th>
                             <th>Username</th>
                             <th>No HP</th>
+                            <th>Tipe Kasir</th>
                             <th class="text-end">Aksi</th>
                         </tr>
                         </thead>
@@ -44,6 +45,15 @@
                                 <td><?= $k->nama; ?></td>
                                 <td><?= $k->username; ?></td>
                                 <td><?= $k->no_hp; ?></td>
+                                <td>
+                                    <?php if ($k->tipe_kasir == 'bulanan'): ?>
+                                        <span class="badge bg-primary">Bulanan</span>
+                                    <?php elseif ($k->tipe_kasir == 'helper'): ?>
+                                        <span class="badge bg-warning text-dark">Helper</span>
+                                    <?php else: ?>
+                                        -
+                                    <?php endif; ?>
+                                </td>
                                 <td class="text-end">
                                     <a href="<?= site_url('admin/kasir/edit/'.$k->id); ?>" class="btn btn-sm btn-outline-dark btn-app">
                                         <i class="bi bi-pencil"></i>

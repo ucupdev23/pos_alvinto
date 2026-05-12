@@ -12,7 +12,7 @@ header("Content-Disposition: attachment; filename=Laporan_Transaksi.xls");
             <th style="background-color: #f2f2f2;">No</th>
             <th style="background-color: #f2f2f2;">Tanggal</th>
             <th style="background-color: #f2f2f2;">Kasir</th>
-            <th style="background-color: #f2f2f2;">Karyawan</th>
+            <th style="background-color: #f2f2f2;">Kapster</th>
             <th style="background-color: #f2f2f2;">Jenis</th>
             <th style="background-color: #f2f2f2;">Metode</th>
             <th style="background-color: #f2f2f2;">Harga</th>
@@ -20,11 +20,11 @@ header("Content-Disposition: attachment; filename=Laporan_Transaksi.xls");
     </thead>
     <tbody>
         <?php
-$no = 1;
-$total_omzet = 0;
-foreach ($laporan as $row):
-    $total_omzet += $row->harga;
-?>
+        $no = 1;
+        $total_omzet = 0;
+        foreach ($laporan as $row):
+            $total_omzet += $row->harga;
+            ?>
             <tr>
                 <td style="text-align: center;"><?= $no++; ?></td>
                 <td style="text-align: center;"><?= date('d/m/Y H:i', strtotime($row->tanggal)); ?></td>
@@ -34,11 +34,12 @@ foreach ($laporan as $row):
                 <td><?= $row->metode_bayar; ?></td>
                 <td style="text-align: right;">Rp <?= number_format($row->harga, 0, ',', '.'); ?></td>
             </tr>
-        <?php
-endforeach; ?>
+            <?php
+        endforeach; ?>
         <tr>
             <td colspan="6" style="text-align: center; font-weight: bold; background-color: #f2f2f2;">TOTAL</td>
-            <td style="text-align: right; font-weight: bold; background-color: #f2f2f2;">Rp <?= number_format($total_omzet, 0, ',', '.'); ?></td>
+            <td style="text-align: right; font-weight: bold; background-color: #f2f2f2;">Rp
+                <?= number_format($total_omzet, 0, ',', '.'); ?></td>
         </tr>
     </tbody>
 </table>

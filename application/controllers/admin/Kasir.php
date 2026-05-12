@@ -78,6 +78,8 @@ class Kasir extends MY_Controller
         $username = $this->input->post('username', TRUE);
         $password = $this->input->post('password', TRUE);
 
+        $tipe_kasir = $this->input->post('tipe_kasir', TRUE);
+
         if ($mode == 'tambah') {
             if (!$no_hp) {
                 $this->session->set_flashdata('error', 'Nomor HP wajib diisi untuk kasir baru.');
@@ -92,7 +94,8 @@ class Kasir extends MY_Controller
                 'nama' => $nama,
                 'no_hp' => $no_hp,
                 'username' => $username,
-                'password' => md5($password)
+                'password' => md5($password),
+                'tipe_kasir' => $tipe_kasir
             ];
 
             if ($this->User_model->create_kasir($data)) {
@@ -109,7 +112,8 @@ class Kasir extends MY_Controller
             $data = [
                 'nama' => $nama,
                 'no_hp' => $no_hp,
-                'username' => $username
+                'username' => $username,
+                'tipe_kasir' => $tipe_kasir
             ];
 
             if ($no_hp) {

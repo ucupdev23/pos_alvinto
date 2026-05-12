@@ -7,7 +7,7 @@ $mode = isset($mode) ? $mode : 'tambah';
         <div class="card card-app">
             <div class="card-body">
                 <h6 class="mb-3">
-                    <?= $mode == 'tambah' ? 'Tambah Karyawan' : 'Edit Karyawan'; ?>
+                    <?= $mode == 'tambah' ? 'Tambah Kapster' : 'Edit Kapster'; ?>
                 </h6>
 
                 <form method="post" action="<?= site_url('admin/karyawan/simpan'); ?>" class="small">
@@ -19,13 +19,13 @@ $mode = isset($mode) ? $mode : 'tambah';
                     <div class="mb-2">
                         <label class="form-label small">Nama</label>
                         <input type="text" name="nama" class="form-control form-control-sm"
-                               value="<?= $karyawan ? $karyawan->nama : ''; ?>" required>
+                            value="<?= $karyawan ? $karyawan->nama : ''; ?>" required>
                     </div>
 
                     <div class="mb-2">
                         <label class="form-label small">No HP</label>
                         <input type="text" name="no_hp" class="form-control form-control-sm"
-                               value="<?= $karyawan ? $karyawan->no_hp : ''; ?>">
+                            value="<?= $karyawan ? $karyawan->no_hp : ''; ?>">
                     </div>
 
                     <!-- <div class="form-check form-switch mb-3">

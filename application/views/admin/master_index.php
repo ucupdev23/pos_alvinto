@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-6">
                         <a href="<?= site_url('admin/karyawan'); ?>" class="btn btn-outline-dark w-100 btn-app">
-                            <i class="bi bi-person-badge me-1"></i> Karyawan
+                            <i class="bi bi-person-badge me-1"></i> Kapster
                         </a>
                     </div>
                     <div class="col-6">
@@ -24,13 +24,25 @@
                         </a>
                     </div>
                     <div class="col-6">
-                        <a href="<?= site_url('admin/metode_pembayaran'); ?>" class="btn btn-outline-dark w-100 btn-app">
+                        <a href="<?= site_url('admin/metode_pembayaran'); ?>"
+                            class="btn btn-outline-dark w-100 btn-app">
                             <i class="bi bi-credit-card me-1"></i> Metode Bayar
                         </a>
                     </div>
-                    <div class="col-12">
-                        <a href="<?= site_url('admin/aturan_uang_makan'); ?>" class="btn btn-outline-dark w-100 btn-app">
-                            <i class="bi bi-cash-coin me-1"></i> Aturan Uang Makan
+                    <div class="col-12 mt-2">
+                        <a href="<?= site_url('admin/aturan_uang_makan'); ?>"
+                            class="btn btn-outline-dark w-100 btn-app">
+                            <i class="bi bi-cash-coin me-1"></i> Aturan Uang Makan Kapster
+                        </a>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <a href="<?= site_url('admin/aturan_uang_makan_kasir'); ?>" class="btn btn-outline-dark w-100 btn-app">
+                            <i class="bi bi-cash-stack me-1"></i> Aturan Uang Makan Kasir
+                        </a>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <a href="<?= site_url('admin/gaji_kasir'); ?>" class="btn btn-outline-dark w-100 btn-app">
+                            <i class="bi bi-wallet2 me-1"></i> Gaji Kasir
                         </a>
                     </div>
                 </div>

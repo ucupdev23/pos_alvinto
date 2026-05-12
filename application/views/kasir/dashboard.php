@@ -12,7 +12,7 @@
                         <i class="bi bi-plus-circle me-1"></i> Input Transaksi
                     </a>
                     <a href="<?= site_url('kasir/laporan'); ?>" class="btn btn-outline-dark btn-app">
-                        <i class="bi bi-file-earmark-text me-1"></i> Slip Gaji Karyawan
+                        <i class="bi bi-file-earmark-text me-1"></i> Slip Gaji Kapster
                     </a>
                 </div>
             </div>

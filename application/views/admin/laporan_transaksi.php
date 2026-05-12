@@ -8,12 +8,12 @@
                         <div class="col-6">
                             <label class="form-label small">Mulai</label>
                             <input type="date" name="tanggal_mulai" class="form-control form-control-sm"
-                                   value="<?= $tanggal_mulai; ?>">
+                                value="<?= $tanggal_mulai; ?>">
                         </div>
                         <div class="col-6">
                             <label class="form-label small">Selesai</label>
                             <input type="date" name="tanggal_selesai" class="form-control form-control-sm"
-                                   value="<?= $tanggal_selesai; ?>">
+                                value="<?= $tanggal_selesai; ?>">
                         </div>
                         <div class="col-6">
                             <label class="form-label small">Kasir</label>
@@ -23,20 +23,20 @@
                                     <option value="<?= $k->id; ?>" <?= $kasir_id == $k->id ? 'selected' : ''; ?>>
                                         <?= $k->nama; ?>
                                     </option>
-                                <?php
-endforeach; ?>
+                                    <?php
+                                endforeach; ?>
                             </select>
                         </div>
                         <div class="col-6">
-                            <label class="form-label small">Karyawan</label>
+                            <label class="form-label small">Kapster</label>
                             <select name="karyawan_id" class="form-select form-select-sm">
                                 <option value="">Semua</option>
                                 <?php foreach ($karyawan_list as $ky): ?>
                                     <option value="<?= $ky->id; ?>" <?= $karyawan_id == $ky->id ? 'selected' : ''; ?>>
                                         <?= $ky->nama; ?>
                                     </option>
-                                <?php
-endforeach; ?>
+                                    <?php
+                                endforeach; ?>
                             </select>
                         </div>
                         <div class="col-6">
@@ -47,19 +47,19 @@ endforeach; ?>
                                     <option value="<?= $m->id; ?>" <?= $metode_id == $m->id ? 'selected' : ''; ?>>
                                         <?= $m->nama; ?>
                                     </option>
-                                <?php
-endforeach; ?>
+                                    <?php
+                                endforeach; ?>
                             </select>
                         </div>
                         <div class="col-6 d-flex align-items-end gap-1">
-    <button type="submit" class="btn btn-dark btn-sm w-100 btn-app mt-1">
-        <i class="bi bi-search me-1"></i>
-    </button>
-    <a href="<?= site_url('admin/laporan'); ?>" 
-       class="btn btn-outline-secondary btn-sm w-100 btn-app mt-1">
-        <i class="bi bi-arrow-clockwise"></i>
-    </a>
-</div>
+                            <button type="submit" class="btn btn-dark btn-sm w-100 btn-app mt-1">
+                                <i class="bi bi-search me-1"></i>
+                            </button>
+                            <a href="<?= site_url('admin/laporan'); ?>"
+                                class="btn btn-outline-secondary btn-sm w-100 btn-app mt-1">
+                                <i class="bi bi-arrow-clockwise"></i>
+                            </a>
+                        </div>
 
                     </div>
                 </form>
@@ -68,14 +68,16 @@ endforeach; ?>
 
         <div class="d-flex gap-2 mb-2 justify-content-end">
             <?php
-$params = $_GET;
-unset($params['page']);
-$query_string = http_build_query($params);
-?>
-            <a href="<?= site_url('admin/laporan/export_excel?' . $query_string); ?>" target="_blank" class="btn btn-success btn-sm btn-app">
+            $params = $_GET;
+            unset($params['page']);
+            $query_string = http_build_query($params);
+            ?>
+            <a href="<?= site_url('admin/laporan/export_excel?' . $query_string); ?>" target="_blank"
+                class="btn btn-success btn-sm btn-app">
                 <i class="bi bi-file-earmark-excel me-1"></i> Excel
             </a>
-            <a href="<?= site_url('admin/laporan/export_pdf?' . $query_string); ?>" target="_blank" class="btn btn-danger btn-sm btn-app">
+            <a href="<?= site_url('admin/laporan/export_pdf?' . $query_string); ?>" target="_blank"
+                class="btn btn-danger btn-sm btn-app">
                 <i class="bi bi-file-earmark-pdf me-1"></i> PDF
             </a>
         </div>
@@ -85,7 +87,8 @@ $query_string = http_build_query($params);
                 <div class="card-body">
                     <h6 class="mb-1">Ringkasan Omzet</h6>
                     <p class="text-muted mb-2" style="font-size: 11px;">
-                        Periode <?= date('d/m/Y', strtotime($tanggal_mulai)); ?> - <?= date('d/m/Y', strtotime($tanggal_selesai)); ?>
+                        Periode <?= date('d/m/Y', strtotime($tanggal_mulai)); ?> -
+                        <?= date('d/m/Y', strtotime($tanggal_selesai)); ?>
                     </p>
                     <table class="table table-sm mb-0" style="font-size: 12px;">
                         <tr>
@@ -101,8 +104,8 @@ $query_string = http_build_query($params);
                     </table>
                 </div>
             </div>
-        <?php
-endif; ?>
+            <?php
+        endif; ?>
 
         <div class="card card-app">
             <div class="card-body p-0">
@@ -110,51 +113,52 @@ endif; ?>
                     <p class="text-center text-muted py-3 mb-0" style="font-size: 12px;">
                         Tidak ada transaksi pada periode & filter ini.
                     </p>
-                <?php
-else: ?>
+                    <?php
+                else: ?>
                     <div style="max-height: 380px; overflow-y: auto;">
-                        <?php    $start = $offset + 1;    $end = min($offset + $per_page, $total_rows);
-?>
+                        <?php $start = $offset + 1;
+                        $end = min($offset + $per_page, $total_rows);
+                        ?>
 
-<p class="text-muted px-2 pt-2 mb-1" style="font-size:11px;">
-    Menampilkan <?= $start; ?>–<?= $end; ?> dari <?= $total_rows; ?> data
-</p>
+                        <p class="text-muted px-2 pt-2 mb-1" style="font-size:11px;">
+                            Menampilkan <?= $start; ?>–<?= $end; ?> dari <?= $total_rows; ?> data
+                        </p>
 
                         <table class="table table-sm mb-0" style="font-size: 11px;">
                             <thead class="table-light">
-                            <tr>
-                                <th>Tgl</th>
-                                <th>Karyawan</th>
-                                <th>Jenis</th>
-                                <th>Kasir</th>
-                                <th>Metode</th>
-                                <th class="text-end">Harga</th>
-                            </tr>
+                                <tr>
+                                    <th>Tgl</th>
+                                    <th>Kapster</th>
+                                    <th>Jenis</th>
+                                    <th>Kasir</th>
+                                    <th>Metode</th>
+                                    <th class="text-end">Harga</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($laporan as $t): ?>
-                                <tr>
-                                    <td><?= date('d/m', strtotime($t->tanggal)); ?></td>
-                                    <td><?= $t->nama_karyawan; ?></td>
-                                    <td><?= $t->jenis_pangkas; ?></td>
-                                    <td><?= $t->nama_kasir; ?></td>
-                                    <td><?= $t->metode_bayar; ?></td>
-                                    <td class="text-end">
-                                        Rp <?= number_format($t->harga, 0, ',', '.'); ?>
-                                    </td>
-                                </tr>
-                            <?php
-    endforeach; ?>
+                                <?php foreach ($laporan as $t): ?>
+                                    <tr>
+                                        <td><?= date('d/m', strtotime($t->tanggal)); ?></td>
+                                        <td><?= $t->nama_karyawan; ?></td>
+                                        <td><?= $t->jenis_pangkas; ?></td>
+                                        <td><?= $t->nama_kasir; ?></td>
+                                        <td><?= $t->metode_bayar; ?></td>
+                                        <td class="text-end">
+                                            Rp <?= number_format($t->harga, 0, ',', '.'); ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                endforeach; ?>
                             </tbody>
                         </table>
                         <?php if (!empty($pagination)): ?>
-    <?= $pagination; ?>
-<?php
-    endif; ?>
+                            <?= $pagination; ?>
+                            <?php
+                        endif; ?>
 
                     </div>
-                <?php
-endif; ?>
+                    <?php
+                endif; ?>
             </div>
         </div>
 

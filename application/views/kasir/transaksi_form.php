@@ -29,9 +29,9 @@
 
                 <form method="post" action="<?= site_url('kasir/transaksi/simpan'); ?>">
                     <div class="mb-3">
-                        <label class="form-label small">Karyawan</label>
+                        <label class="form-label small">Kapster</label>
                         <select name="karyawan_id" class="form-select form-select-sm" required>
-                            <option value="">- Pilih Karyawan -</option>
+                            <option value="">- Pilih Kapster -</option>
                             <?php foreach ($karyawan as $k): ?>
                                 <option value="<?= $k->id; ?>"><?= $k->nama; ?></option>
                             <?php endforeach; ?>

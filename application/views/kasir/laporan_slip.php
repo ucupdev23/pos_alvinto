@@ -4,22 +4,22 @@
             <div class="card-body">
                 <form method="get" action="<?= site_url('kasir/laporan'); ?>">
                     <div class="mb-2">
-                        <label class="form-label small">Karyawan</label>
+                        <label class="form-label small">Kapster</label>
                         <select name="karyawan_id" class="form-select form-select-sm" required>
-                            <option value="">- Pilih Karyawan -</option>
+                            <option value="">- Pilih Kapster -</option>
                             <?php foreach ($karyawan as $k): ?>
-                                <option value="<?= $k->id; ?>" <?=($karyawan_id == $k->id ? 'selected' : ''); ?>>
+                                <option value="<?= $k->id; ?>" <?= ($karyawan_id == $k->id ? 'selected' : ''); ?>>
                                     <?= $k->nama; ?>
                                 </option>
-                            <?php
-endforeach; ?>
+                                <?php
+                            endforeach; ?>
                         </select>
                     </div>
 
                     <div class="mb-2">
                         <label class="form-label small">Tanggal</label>
                         <input type="date" name="tanggal" class="form-control form-control-sm"
-                               value="<?= $tanggal ? $tanggal : date('Y-m-d'); ?>" required>
+                            value="<?= $tanggal ? $tanggal : date('Y-m-d'); ?>" required>
                     </div>
 
                     <div class="d-flex gap-1 mt-2">
@@ -27,8 +27,7 @@ endforeach; ?>
                             <i class="bi bi-search me-1"></i> Tampilkan Slip
                         </button>
 
-                        <a href="<?= site_url('kasir/laporan'); ?>"
-                        class="btn btn-outline-secondary btn-app">
+                        <a href="<?= site_url('kasir/laporan'); ?>" class="btn btn-outline-secondary btn-app">
                             <i class="bi bi-arrow-clockwise"></i>
                         </a>
                     </div>
@@ -40,15 +39,15 @@ endforeach; ?>
             <div class="alert alert-success py-2 mb-2">
                 <?= $this->session->flashdata('success'); ?>
             </div>
-        <?php
-endif; ?>
+            <?php
+        endif; ?>
 
         <?php if ($this->session->flashdata('error')): ?>
             <div class="alert alert-danger py-2 mb-2">
                 <?= $this->session->flashdata('error'); ?>
             </div>
-        <?php
-endif; ?>
+            <?php
+        endif; ?>
 
         <?php if ($karyawan_id && $tanggal): ?>
             <div class="card card-app">
@@ -56,7 +55,7 @@ endif; ?>
                     <?php if ($slip): ?>
                         <div class="d-flex justify-content-between mb-2">
                             <div>
-                                <small class="text-muted">Karyawan</small><br>
+                                <small class="text-muted">Kapster</small><br>
                                 <strong><?= $slip['nama_karyawan']; ?></strong>
                             </div>
                             <div class="text-end">
@@ -100,7 +99,7 @@ endif; ?>
                                 </thead>
                                 <tbody>
                                     <?php $no = 1;
-            foreach ($detail as $d): ?>
+                                    foreach ($detail as $d): ?>
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= $d->jenis_pangkas; ?></td>
@@ -110,12 +109,12 @@ endif; ?>
                                                 Rp <?= number_format($d->total_harga, 0, ',', '.'); ?>
                                             </td>
                                         </tr>
-                                    <?php
-            endforeach; ?>
+                                        <?php
+                                    endforeach; ?>
                                 </tbody>
                             </table>
-                        <?php
-        endif; ?>
+                            <?php
+                        endif; ?>
 
                         <form action="<?= site_url('kasir/laporan/kirim_wa'); ?>" method="post">
                             <input type="hidden" name="karyawan_id" value="<?= $karyawan_id; ?>">
@@ -125,16 +124,16 @@ endif; ?>
                             </button>
                         </form>
 
-                    <?php
-    else: ?>
+                        <?php
+                    else: ?>
                         <p class="text-center text-muted mb-0" style="font-size: 12px;">
-                            Tidak ada transaksi untuk karyawan dan tanggal tersebut.
+                            Tidak ada transaksi untuk kapster dan tanggal tersebut.
                         </p>
-                    <?php
-    endif; ?>
+                        <?php
+                    endif; ?>
                 </div>
             </div>
-        <?php
-endif; ?>
+            <?php
+        endif; ?>
     </div>
 </div>

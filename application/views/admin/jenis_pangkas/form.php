@@ -22,8 +22,9 @@
 
                     <div class="mb-2">
                         <label class="form-label small">Harga (Rp)</label>
-                        <input type="number" name="harga" class="form-control form-control-sm"
-                               value="<?= $jenis ? $jenis->harga : ''; ?>" required min="0">
+                        <input type="text" id="harga_display" class="form-control form-control-sm"
+                               value="<?= $jenis ? number_format($jenis->harga, 0, ',', '.') : ''; ?>" required inputmode="numeric" autocomplete="off">
+                        <input type="hidden" name="harga" id="harga_real" value="<?= $jenis ? $jenis->harga : ''; ?>">
                     </div>
 
                     <div class="mb-2">
@@ -31,12 +32,6 @@
                         <input type="text" name="keterangan" class="form-control form-control-sm"
                                value="<?= $jenis ? $jenis->keterangan : ''; ?>">
                     </div>
-
-                    <!-- <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" role="switch" id="statusSwitch"
-                               name="status" <?= (!$jenis || $jenis->status) ? 'checked' : ''; ?>>
-                        <label class="form-check-label small" for="statusSwitch">Aktif</label>
-                    </div> -->
 
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-dark btn-app">
@@ -50,3 +45,21 @@
         </div>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const inputDisplay = document.getElementById('harga_display');
+    const inputReal = document.getElementById('harga_real');
+
+    if (inputDisplay && inputReal) {
+        inputDisplay.addEventListener('input', function(e) {
+            let val = this.value.replace(/[^0-9]/g, '');
+            inputReal.value = val;
+            if (val !== '') {
+                this.value = parseInt(val).toLocaleString('id-ID');
+            } else {
+                this.value = '';
+            }
+        });
+    }
+});
+</script>

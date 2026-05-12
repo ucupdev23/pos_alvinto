@@ -35,6 +35,14 @@ $mode = isset($mode) ? $mode : 'tambah';
                     </div>
 
                     <div class="mb-2">
+                        <label class="form-label small">Tipe Kasir</label>
+                        <select name="tipe_kasir" class="form-select form-select-sm" required>
+                            <option value="bulanan" <?= ($mode=='edit' && $kasir && $kasir->tipe_kasir == 'bulanan') ? 'selected' : ''; ?>>Bulanan</option>
+                            <option value="helper" <?= ($mode=='edit' && $kasir && $kasir->tipe_kasir == 'helper') ? 'selected' : ''; ?>>Helper</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
                         <label class="form-label small">
                             Password <?= $mode=='edit' ? '(kosongi jika tidak diganti)' : ''; ?>
                         </label>

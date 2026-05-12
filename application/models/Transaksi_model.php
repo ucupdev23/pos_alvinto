@@ -44,8 +44,8 @@ class Transaksi_model extends CI_Model
         $this->db->where('tanggal', $tanggal);
         $exists = $this->db->count_all_results('gaji_karyawan');
 
-        if ($exists > 0) {
-            return; // Sudah ada, jangan diapa-apain
+        if ($exists > 0 && $tanggal !== date('Y-m-d')) {
+            return; // Sudah ada dan bukan hari ini, jangan diapa-apain
         }
 
         // 1. Hitung total omzet & jumlah potong hari ini untuk karyawan tsb
@@ -67,7 +67,7 @@ class Transaksi_model extends CI_Model
         // 4. Total Gaji
         $total_gaji = $upah + $uang_makan;
 
-        // 5. Insert ke tabel gaji_karyawan
+        // 5. Insert atau Update ke tabel gaji_karyawan
         $data_gaji = [
             'karyawan_id' => $karyawan_id,
             'tanggal' => $tanggal,
@@ -78,7 +78,13 @@ class Transaksi_model extends CI_Model
             'total_gaji' => $total_gaji
         ];
 
-        $this->db->insert('gaji_karyawan', $data_gaji);
+        if ($exists > 0) {
+            $this->db->where('karyawan_id', $karyawan_id);
+            $this->db->where('tanggal', $tanggal);
+            $this->db->update('gaji_karyawan', $data_gaji);
+        } else {
+            $this->db->insert('gaji_karyawan', $data_gaji);
+        }
     }
 
 
