@@ -30,11 +30,28 @@ class Transaksi_model extends CI_Model
         $inserted = $this->db->insert('transaksi', $data);
 
         if ($inserted) {
-        // 🔥 Update tabel history gaji karyawan dihapus dari sini (pindah ke Gaji_kasir)
-        // $this->_update_gaji_karyawan($karyawan_id, $data['tanggal']);
+            return $this->db->insert_id();
         }
 
-        return $inserted;
+        return false;
+    }
+
+    public function get_transaksi_by_id($id)
+    {
+        $this->db->select('
+            transaksi.*,
+            users.nama AS nama_kasir,
+            karyawan.nama AS nama_karyawan,
+            jenis_pangkas.nama AS jenis_pangkas,
+            metode_pembayaran.nama AS metode_bayar
+        ');
+        $this->db->from('transaksi');
+        $this->db->join('users', 'users.id = transaksi.kasir_id');
+        $this->db->join('karyawan', 'karyawan.id = transaksi.karyawan_id');
+        $this->db->join('jenis_pangkas', 'jenis_pangkas.id = transaksi.jenis_pangkas_id');
+        $this->db->join('metode_pembayaran', 'metode_pembayaran.id = transaksi.metode_pembayaran_id');
+        $this->db->where('transaksi.id', $id);
+        return $this->db->get()->row();
     }
 
     public function save_gaji_if_not_exists($karyawan_id, $tanggal)
@@ -425,5 +442,12 @@ class Transaksi_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function truncate_all_transactions()
+    {
+        $this->db->truncate('transaksi');
+        $this->db->truncate('gaji_karyawan');
+        $this->db->truncate('gaji_kasir');
+        return true;
+    }
 
 }

@@ -201,11 +201,13 @@ endif; ?>
                             <i class="bi bi-clipboard-data me-1"></i> Laporan
                         </a>
                     </div>
-                    <!-- <div class="col-6">
-                        <a href="<?= site_url('admin/more'); ?>" class="btn btn-outline-secondary w-100 btn-app">
-                            <i class="bi bi-three-dots me-1"></i> Lainnya
+                    <div class="col-12 mt-2">
+                        <a href="<?= site_url('admin/dashboard/reset_data'); ?>" 
+                           class="btn btn-outline-danger w-100 btn-app fw-bold" 
+                           onclick="return confirm('PERHATIAN: Apakah Anda yakin ingin MENGHAPUS SELURUH riwayat transaksi dan riwayat gaji? Semua data percobaan akan kembali kosong. Tindakan ini tidak dapat dibatalkan!');">
+                            <i class="bi bi-trash3 me-1"></i> Hapus Semua Data Trial
                         </a>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>

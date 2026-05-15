@@ -83,6 +83,13 @@
                                 <th>Total Gaji</th>
                                 <th class="text-end">Rp <?= number_format($slip['total_gaji'], 0, ',', '.'); ?></th>
                             </tr>
+                            <tr>
+                                <td colspan="2"><hr class="m-0"></td>
+                            </tr>
+                            <tr class="text-success">
+                                <th>Profit Bersih</th>
+                                <th class="text-end">Rp <?= number_format($slip['total_omzet'] - $slip['total_gaji'], 0, ',', '.'); ?></th>
+                            </tr>
                         </table>
 
                         <?php if (!empty($detail)): ?>

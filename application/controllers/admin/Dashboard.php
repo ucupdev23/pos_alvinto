@@ -76,4 +76,13 @@ class Dashboard extends MY_Controller
 
         $this->load->view('layouts/mobile', $data);
     }
+
+    public function reset_data()
+    {
+        // Hanya owner/admin yang bisa akses ini
+        $this->Transaksi_model->truncate_all_transactions();
+        
+        $this->session->set_flashdata('success', 'Semua data transaksi dan histori berhasil dikosongkan (Reset Trial).');
+        redirect('admin/dashboard');
+    }
 }

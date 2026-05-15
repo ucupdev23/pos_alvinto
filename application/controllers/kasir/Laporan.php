@@ -82,7 +82,7 @@ class Laporan extends MY_Controller
         $details = $this->Transaksi_model->get_transaksi_karyawan_harian_grouped($karyawan_id, $tanggal);
 
         $message = "*SLIP GAJI HARIAN*\n";
-        $message .= "Alvinto Barbershop\n\n";
+        $message .= "Alvinto Haircut\n\n";
         $message .= "Halo *$karyawan->nama*,\n";
         $message .= "Berikut adalah rincian gaji Anda untuk tanggal *$tgl_indo*:\n\n";
 
@@ -96,12 +96,15 @@ class Laporan extends MY_Controller
             $message .= "\n";
         }
 
+        $profit = $slip['total_omzet'] - $slip['total_gaji'];
+        $profit_formatted = number_format($profit, 0, ',', '.');
+
         $message .= "Total Omzet: Rp $omzet\n";
         $message .= "Upah (50%): Rp $upah\n";
         $message .= "Uang Makan: Rp $makan\n";
         $message .= "----------------------------------\n";
         $message .= "*TOTAL TERIMA: Rp $total*\n\n";
-        $message .= "Terima kasih atas kerja kerasnya hari ini! 💪";
+        $message .= "Terima kasih atas kerja kerasnya hari ini, semoga berkah..!💪";
 
         // 3. Kirim via Fonnte
         $curl = curl_init();
@@ -131,13 +134,11 @@ class Laporan extends MY_Controller
 
         if ($error) {
             $this->session->set_flashdata('error', 'Gagal mengirim WA: ' . $error);
-        }
-        else {
+        } else {
             $res = json_decode($response, true);
             if (isset($res['status']) && $res['status'] == true) {
                 $this->session->set_flashdata('success', 'Slip gaji berhasil dikirim ke WA karyawan.');
-            }
-            else {
+            } else {
                 $reason = isset($res['reason']) ? $res['reason'] : 'Unknown error';
                 $this->session->set_flashdata('error', 'Gagal mengirim WA (Fonnte): ' . $reason);
             }

@@ -70,9 +70,19 @@
                             <span>Rp <?= number_format($rekap_harian['total_omzet'], 0, ',', '.'); ?></span>
                         </div>
                         <div class="d-flex justify-content-between small mb-1">
-                            <span class="text-muted">Gaji Kapster (50%)</span>
+                            <span class="text-muted">Gaji Kapster</span>
                             <span class="text-danger">- Rp <?= number_format($rekap_harian['total_gaji_karyawan'], 0, ',', '.'); ?></span>
                         </div>
+                        <?php if(!empty($rekap_harian['per_karyawan'])): ?>
+                            <div class="ps-2 mb-2 pb-1" style="border-left: 2px solid #e9ecef;">
+                                <?php foreach($rekap_harian['per_karyawan'] as $pk): ?>
+                                    <div class="d-flex justify-content-between text-muted" style="font-size: 10.5px;">
+                                        <span>↳ <?= $pk['nama_karyawan']; ?> <i style="font-size: 9px;">(Omzet: Rp <?= number_format($pk['omzet'], 0, ',', '.'); ?> | Makan: Rp <?= number_format($pk['uang_makan'], 0, ',', '.'); ?>)</i></span>
+                                        <span>Rp <?= number_format($pk['total_gaji'], 0, ',', '.'); ?></span>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
                         <div class="d-flex justify-content-between small mb-2 pb-2" style="border-bottom: 1px dashed #ccc;">
                             <span class="text-muted">Uang Makan Kasir (<?= ucfirst($tipe_kasir_hari ?? 'Bulanan'); ?>)</span>
                             <span class="text-danger">- Rp <?= number_format($rekap_harian['uang_makan_kasir'], 0, ',', '.'); ?></span>

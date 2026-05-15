@@ -46,20 +46,101 @@ class Transaksi extends MY_Controller
             redirect('kasir/transaksi');
         }
 
-        $insert = $this->Transaksi_model->insert_transaksi(
+        $insert_id = $this->Transaksi_model->insert_transaksi(
             $kasir_id,
             $karyawan_id,
             $jenis_pangkas_id,
             $metode_pembayaran_id
         );
 
-        if ($insert) {
+        if ($insert_id) {
             $this->session->set_flashdata('success', 'Transaksi berhasil disimpan.');
+            $this->session->set_flashdata('print_struk_id', $insert_id);
+            $this->session->set_flashdata('bayar', $this->input->post('bayar'));
+            $this->session->set_flashdata('kembalian', $this->input->post('kembalian'));
         }
         else {
             $this->session->set_flashdata('error', 'Gagal menyimpan transaksi.');
         }
 
         redirect('kasir/transaksi');
+    }
+
+    public function struk($id)
+    {
+        $transaksi = $this->Transaksi_model->get_transaksi_by_id($id);
+        if (!$transaksi) {
+            show_404();
+        }
+
+        $bayar = $this->input->get('bayar');
+        $kembalian = $this->input->get('kembalian');
+
+        $data = [
+            'transaksi' => $transaksi,
+            'bayar' => $bayar,
+            'kembalian' => $kembalian
+        ];
+
+        $this->load->view('kasir/struk', $data);
+    }
+
+    public function struk_json($id)
+    {
+        $transaksi = $this->Transaksi_model->get_transaksi_by_id($id);
+        if (!$transaksi) {
+            echo json_encode(['error' => 'Data tidak ditemukan']);
+            return;
+        }
+
+        $bayar = (float)($this->input->get('bayar') ?: 0);
+        $kembalian = (float)($this->input->get('kembalian') ?: 0);
+
+        $a = array();
+
+        $add_text = function($content, $bold=0, $align=0, $format=0) use (&$a) {
+            $obj = new stdClass();
+            $obj->type = 0;
+            $obj->content = $content;
+            $obj->bold = $bold;
+            $obj->align = $align;
+            $obj->format = $format;
+            array_push($a, $obj);
+        };
+
+        // Header
+        $add_text('ALVINTO HAIRCUT', 1, 1, 1);
+        $add_text('-- specialist men & kids --', 0, 1, 0);
+        $add_text(' ', 0, 0, 0);
+        
+        // Info
+        $add_text('Nama Barber : ' . $transaksi->nama_karyawan, 0, 0, 0);
+        $add_text('--------------------------------', 0, 0, 0);
+        $add_text('Date: ' . date('d/m/Y', strtotime($transaksi->tanggal)), 1, 0, 0);
+        $add_text($transaksi->jenis_pangkas . ' : Rp.' . number_format($transaksi->harga, 0, ',', '.'), 0, 0, 0);
+        $add_text('Pembayaran : ' . $transaksi->metode_bayar, 0, 0, 0);
+        $add_text('--------------------------------', 0, 0, 0);
+
+        if ($transaksi->metode_pembayaran_id == 1 && $bayar) {
+            $add_text('Bayar : Rp.' . number_format($bayar, 0, ',', '.'), 0, 0, 0);
+            $add_text('Kembalian : Rp.' . number_format($kembalian, 0, ',', '.'), 0, 0, 0);
+        }
+        $add_text('Nama Kasir : ' . $transaksi->nama_kasir, 0, 0, 0);
+        $add_text('--------------------------------', 0, 0, 0);
+        $add_text('TERIMA KASIH ATAS KUNJUNGAN ANDA', 0, 1, 0);
+
+        // Image
+        $obj2 = new stdClass();	
+        $obj2->type = 1;
+        $obj2->path = base_url('assets/logo.png');
+        $obj2->align = 1;
+        array_push($a, $obj2);
+
+        $add_text('WhatsApp : (087770077254)-(087870708254)', 1, 1, 0);
+
+        if (ob_get_length()) ob_clean();
+        header('Content-Type: application/json');
+        echo json_encode($a, JSON_FORCE_OBJECT);
+        exit;
     }
 }
