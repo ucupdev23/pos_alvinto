@@ -33,4 +33,5 @@ defined('EXIT__AUTO_MIN') or define('EXIT__AUTO_MIN', 9); // lowest automaticall
 defined('EXIT__AUTO_MAX') or define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 // FONNTE API TOKEN
-defined('FONNTE_TOKEN') or define('FONNTE_TOKEN', 'aipuWq4B17osEqg21d1A');
+// defined('FONNTE_TOKEN') or define('FONNTE_TOKEN', 'aipuWq4B17osEqg21d1A');
+defined('FONNTE_TOKEN') or define('FONNTE_TOKEN', 'C7fccTWfEWe3Q4oksPgd');
