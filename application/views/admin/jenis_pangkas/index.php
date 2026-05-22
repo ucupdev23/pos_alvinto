@@ -22,7 +22,7 @@
                         Belum ada jenis pangkas.
                     </p>
                 <?php else: ?>
-                    <div style="max-height: 380px; overflow-y: auto;">
+                    <div class="app-scrollable-table">
                         <table class="table table-sm mb-0" style="font-size: 11px;">
                             <thead class="table-light">
                             <tr>

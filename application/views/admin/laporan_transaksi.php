@@ -5,17 +5,17 @@
             <div class="card-body">
                 <form method="get" action="<?= site_url('admin/laporan'); ?>" class="small">
                     <div class="row g-2">
-                        <div class="col-6">
+                        <div class="col-6 col-md-4 col-lg-2">
                             <label class="form-label small">Mulai</label>
                             <input type="date" name="tanggal_mulai" class="form-control form-control-sm"
                                 value="<?= $tanggal_mulai; ?>">
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 col-md-4 col-lg-2">
                             <label class="form-label small">Selesai</label>
                             <input type="date" name="tanggal_selesai" class="form-control form-control-sm"
                                 value="<?= $tanggal_selesai; ?>">
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 col-md-4 col-lg-2">
                             <label class="form-label small">Kasir</label>
                             <select name="kasir_id" class="form-select form-select-sm">
                                 <option value="">Semua</option>
@@ -27,7 +27,7 @@
                                 endforeach; ?>
                             </select>
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 col-md-4 col-lg-2">
                             <label class="form-label small">Kapster</label>
                             <select name="karyawan_id" class="form-select form-select-sm">
                                 <option value="">Semua</option>
@@ -39,7 +39,7 @@
                                 endforeach; ?>
                             </select>
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 col-md-4 col-lg-2">
                             <label class="form-label small">Metode Bayar</label>
                             <select name="metode_id" class="form-select form-select-sm">
                                 <option value="">Semua</option>
@@ -51,7 +51,7 @@
                                 endforeach; ?>
                             </select>
                         </div>
-                        <div class="col-6 d-flex align-items-end gap-1">
+                        <div class="col-6 col-md-4 col-lg-2 d-flex align-items-end gap-1">
                             <button type="submit" class="btn btn-dark btn-sm w-100 btn-app mt-1">
                                 <i class="bi bi-search me-1"></i>
                             </button>
@@ -115,7 +115,7 @@
                     </p>
                     <?php
                 else: ?>
-                    <div style="max-height: 380px; overflow-y: auto;">
+                    <div class="app-scrollable-table">
                         <?php $start = $offset + 1;
                         $end = min($offset + $per_page, $total_rows);
                         ?>

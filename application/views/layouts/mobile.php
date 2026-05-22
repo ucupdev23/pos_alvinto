@@ -31,6 +31,7 @@
             flex-direction: column;
             min-height: 100vh;
             box-shadow: 0 0 20px rgba(15, 23, 42, 0.15);
+            transition: max-width 0.2s ease-in-out;
         }
 
         .app-header {
@@ -72,11 +73,50 @@
             padding: 4px 0;
             z-index: 1050;
             padding-bottom: env(safe-area-inset-bottom); /* Support for iPhone X+ home indicator */
+            transition: max-width 0.2s ease-in-out;
         }
 
         .bottom-nav-inner {
             display: flex;
             justify-content: space-around;
+            width: 100%;
+            transition: max-width 0.2s ease-in-out;
+        }
+
+        .app-scrollable-table {
+            max-height: 400px; /* fallback */
+            max-height: 60vh;
+            overflow-y: auto;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        /* Breakpoints responsif untuk tablet & laptop */
+        @media (min-width: 576px) {
+            .app-shell, .app-bottom-nav {
+                max-width: 540px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .app-shell, .app-bottom-nav {
+                max-width: 720px;
+            }
+            .bottom-nav-inner {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .app-shell, .app-bottom-nav {
+                max-width: 960px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .app-shell, .app-bottom-nav {
+                max-width: 1140px;
+            }
         }
 
         .bottom-nav-item {

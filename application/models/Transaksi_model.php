@@ -450,4 +450,139 @@ class Transaksi_model extends CI_Model
         return true;
     }
 
+    public function recalculate_gaji_karyawan($karyawan_id, $tanggal)
+    {
+        // 1. Hitung total omzet & jumlah potong hari ini untuk karyawan tsb
+        $this->db->select('SUM(harga) as total_omzet, COUNT(id) as total_potong');
+        $this->db->where('karyawan_id', $karyawan_id);
+        $this->db->where('tanggal', $tanggal);
+        $stat = $this->db->get('transaksi')->row();
+
+        $total_omzet = $stat ? (int)$stat->total_omzet : 0;
+        $total_potong = $stat ? (int)$stat->total_potong : 0;
+
+        if ($total_potong == 0) {
+            // Hapus data gaji karyawan untuk tanggal ini karena sudah tidak ada transaksi
+            $this->db->where('karyawan_id', $karyawan_id);
+            $this->db->where('tanggal', $tanggal);
+            $this->db->delete('gaji_karyawan');
+            return;
+        }
+
+        // 2. Hitung Upah (50%)
+        $upah = $total_omzet * 0.5;
+
+        // 3. Hitung Uang Makan (dari rules)
+        $aturan = $this->Aturan_uang_makan_model->get_by_upah($upah);
+        $uang_makan = $aturan ? (int)$aturan->uang_makan : 0;
+
+        // 4. Total Gaji
+        $total_gaji = $upah + $uang_makan;
+
+        // 5. Insert atau Update ke tabel gaji_karyawan
+        $data_gaji = [
+            'karyawan_id' => $karyawan_id,
+            'tanggal' => $tanggal,
+            'total_omzet' => $total_omzet,
+            'total_potong' => $total_potong,
+            'upah' => $upah,
+            'uang_makan' => $uang_makan,
+            'total_gaji' => $total_gaji
+        ];
+
+        $this->db->where('karyawan_id', $karyawan_id);
+        $this->db->where('tanggal', $tanggal);
+        $exists = $this->db->count_all_results('gaji_karyawan');
+
+        if ($exists > 0) {
+            $this->db->where('karyawan_id', $karyawan_id);
+            $this->db->where('tanggal', $tanggal);
+            $this->db->update('gaji_karyawan', $data_gaji);
+        } else {
+            $this->db->insert('gaji_karyawan', $data_gaji);
+        }
+    }
+
+    public function delete_transaksi($id)
+    {
+        // Ambil data transaksi dulu untuk tau karyawan_id dan tanggal
+        $tx = $this->db->get_where('transaksi', ['id' => $id])->row();
+        if ($tx) {
+            $karyawan_id = $tx->karyawan_id;
+            $tanggal = $tx->tanggal;
+
+            // Hapus transaksi
+            $this->db->where('id', $id);
+            $this->db->delete('transaksi');
+
+            // Kalkulasi ulang gaji karyawan
+            $this->recalculate_gaji_karyawan($karyawan_id, $tanggal);
+            return true;
+        }
+        return false;
+    }
+
+    public function delete_transaksi_batch($ids)
+    {
+        if (empty($ids)) {
+            return false;
+        }
+
+        // Ambil data semua transaksi yang akan dihapus untuk mengidentifikasi karyawan & tanggal yang terpengaruh
+        $this->db->select('karyawan_id, tanggal');
+        $this->db->where_in('id', $ids);
+        $txs = $this->db->get('transaksi')->result();
+
+        $affected = [];
+        foreach ($txs as $tx) {
+            $key = $tx->karyawan_id . '|' . $tx->tanggal;
+            $affected[$key] = [
+                'karyawan_id' => $tx->karyawan_id,
+                'tanggal' => $tx->tanggal
+            ];
+        }
+
+        // Hapus
+        $this->db->where_in('id', $ids);
+        $this->db->delete('transaksi');
+
+        // Kalkulasi ulang gaji karyawan yang terpengaruh
+        foreach ($affected as $a) {
+            $this->recalculate_gaji_karyawan($a['karyawan_id'], $a['tanggal']);
+        }
+
+        return true;
+    }
+
+    public function delete_transaksi_by_filter($tanggal_mulai, $tanggal_selesai, $kasir_id = null, $karyawan_id = null, $metode_id = null)
+    {
+        // Cari transaksi yang sesuai filter
+        $this->db->select('id, karyawan_id, tanggal');
+        $this->db->from('transaksi');
+        if ($tanggal_mulai) {
+            $this->db->where('tanggal >=', $tanggal_mulai);
+        }
+        if ($tanggal_selesai) {
+            $this->db->where('tanggal <=', $tanggal_selesai);
+        }
+        if ($kasir_id) {
+            $this->db->where('kasir_id', $kasir_id);
+        }
+        if ($karyawan_id) {
+            $this->db->where('karyawan_id', $karyawan_id);
+        }
+        if ($metode_id) {
+            $this->db->where('metode_pembayaran_id', $metode_id);
+        }
+
+        $txs = $this->db->get()->result();
+        if (empty($txs)) {
+            return false;
+        }
+
+        $ids = array_column($txs, 'id');
+        return $this->delete_transaksi_batch($ids);
+    }
+
 }
+

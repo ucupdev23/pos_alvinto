@@ -202,10 +202,9 @@ endif; ?>
                         </a>
                     </div>
                     <div class="col-12 mt-2">
-                        <a href="<?= site_url('admin/dashboard/reset_data'); ?>" 
-                           class="btn btn-outline-danger w-100 btn-app fw-bold" 
-                           onclick="return confirm('PERHATIAN: Apakah Anda yakin ingin MENGHAPUS SELURUH riwayat transaksi dan riwayat gaji? Semua data percobaan akan kembali kosong. Tindakan ini tidak dapat dibatalkan!');">
-                            <i class="bi bi-trash3 me-1"></i> Hapus Semua Data Trial
+                        <a href="<?= site_url('admin/hapus_data'); ?>" 
+                           class="btn btn-outline-danger w-100 btn-app fw-bold">
+                            <i class="bi bi-trash3 me-1"></i> Pengaturan Hapus Data
                         </a>
                     </div>
                 </div>
