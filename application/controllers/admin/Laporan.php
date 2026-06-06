@@ -103,6 +103,7 @@ class Laporan extends MY_Controller
 
     public function export_excel()
     {
+        ini_set('memory_limit', '512M');
         $tanggal_mulai = $this->input->get('tanggal_mulai') ?: date('Y-m-01');
         $tanggal_selesai = $this->input->get('tanggal_selesai') ?: date('Y-m-d');
         $kasir_id = $this->input->get('kasir_id');
@@ -120,13 +121,22 @@ class Laporan extends MY_Controller
         // Format periode string for the report title
         $periode_str = date('d M Y', strtotime($tanggal_mulai)) . ' - ' . date('d M Y', strtotime($tanggal_selesai));
 
-        // Use the library to generate and download Excel
-        $this->excel_lib->export_laporan_transaksi($laporan, $periode_str);
+        try {
+            // Use the library to generate and download Excel
+            $this->excel_lib->export_laporan_transaksi($laporan, $periode_str);
+        } catch (\Throwable $e) {
+            log_message('error', 'Excel Generation failed: ' . $e->getMessage());
+            $this->session->set_flashdata('error', 'Gagal mengekspor ke Excel. Silakan perkecil rentang tanggal laporan.');
+            $params = $this->input->get();
+            $query_string = $params ? '?' . http_build_query($params) : '';
+            redirect('admin/laporan' . $query_string);
+        }
     }
 
 
     public function export_pdf()
     {
+        ini_set('memory_limit', '512M');
         $tanggal_mulai = $this->input->get('tanggal_mulai') ?: date('Y-m-01');
         $tanggal_selesai = $this->input->get('tanggal_selesai') ?: date('Y-m-d');
         $kasir_id = $this->input->get('kasir_id');
@@ -141,17 +151,33 @@ class Laporan extends MY_Controller
             $metode_id
         );
 
+        // Limit transaksi untuk PDF agar tidak terjadi out of memory pada Dompdf
+        if (count($data['laporan']) > 1000) {
+            $this->session->set_flashdata('error', 'Jumlah transaksi terlalu banyak (' . count($data['laporan']) . ' baris). Maksimal ekspor PDF adalah 1000 baris. Silakan batasi periode tanggal atau gunakan Ekspor Excel.');
+            $params = $this->input->get();
+            $query_string = $params ? '?' . http_build_query($params) : '';
+            redirect('admin/laporan' . $query_string);
+        }
+
         $data['rekap'] = $this->Transaksi_model->get_rekap_omzet($tanggal_mulai, $tanggal_selesai);
         $data['tanggal_mulai'] = $tanggal_mulai;
         $data['tanggal_selesai'] = $tanggal_selesai;
 
         $html = $this->load->view('admin/laporan_pdf', $data, true);
 
-        require_once(APPPATH . 'third_party/dompdf/autoload.inc.php');
-        $dompdf = new Dompdf\Dompdf();
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
-        $dompdf->stream("Laporan_Transaksi_" . date('YmdHis') . ".pdf", array("Attachment" => true));
+        try {
+            require_once(APPPATH . 'third_party/dompdf/autoload.inc.php');
+            $dompdf = new Dompdf\Dompdf();
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+            $dompdf->stream("Laporan_Transaksi_" . date('YmdHis') . ".pdf", array("Attachment" => true));
+        } catch (\Throwable $e) {
+            log_message('error', 'PDF Generation failed: ' . $e->getMessage());
+            $this->session->set_flashdata('error', 'Gagal membuat file PDF karena kapasitas memori server terlampaui. Silakan perkecil rentang tanggal laporan.');
+            $params = $this->input->get();
+            $query_string = $params ? '?' . http_build_query($params) : '';
+            redirect('admin/laporan' . $query_string);
+        }
     }
 }
