@@ -90,6 +90,13 @@ class Kasir extends MY_Controller
                 redirect('admin/kasir/tambah');
             }
 
+            // Cek apakah username sudah ada
+            $cek_username = $this->db->get_where('users', ['username' => $username])->row();
+            if ($cek_username) {
+                $this->session->set_flashdata('error', 'Username "' . $username . '" sudah digunakan. Silakan pilih username lain.');
+                redirect('admin/kasir/tambah');
+            }
+
             $data = [
                 'nama' => $nama,
                 'no_hp' => $no_hp,
@@ -102,13 +109,23 @@ class Kasir extends MY_Controller
                 $this->session->set_flashdata('success', 'Kasir berhasil ditambahkan.');
             }
             else {
-                $this->session->set_flashdata('error', 'Gagal menambahkan kasir (username mungkin sudah digunakan).');
+                $this->session->set_flashdata('error', 'Gagal menambahkan kasir.');
             }
 
             redirect('admin/kasir');
         }
         else {
             // edit
+            // Cek apakah username sudah digunakan oleh pengguna lain
+            $cek_username = $this->db->get_where('users', [
+                'username' => $username,
+                'id !=' => $id
+            ])->row();
+            if ($cek_username) {
+                $this->session->set_flashdata('error', 'Username "' . $username . '" sudah digunakan oleh pengguna lain.');
+                redirect('admin/kasir/edit/' . $id);
+            }
+
             $data = [
                 'nama' => $nama,
                 'no_hp' => $no_hp,

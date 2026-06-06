@@ -55,7 +55,7 @@
                                             <?php if ($k->status): ?>
                                                 <a href="<?= site_url('admin/karyawan/hapus/' . $k->id); ?>"
                                                     class="btn btn-sm btn-outline-danger btn-app"
-                                                    onclick="return confirm('Nonaktifkan kapster ini?');">
+                                                    data-confirm="Nonaktifkan kapster ini?">
                                                     <i class="bi bi-trash"></i>
                                                 </a>
                                             <?php endif; ?>

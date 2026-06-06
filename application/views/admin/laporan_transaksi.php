@@ -142,7 +142,17 @@
                                         <td><?= $t->nama_karyawan; ?></td>
                                         <td><?= $t->jenis_pangkas; ?></td>
                                         <td><?= $t->nama_kasir; ?></td>
-                                        <td><?= $t->metode_bayar; ?></td>
+                                        <td>
+                                            <?php 
+                                            $metode = strtolower($t->metode_bayar);
+                                            if (strpos($metode, 'qris') !== false): ?>
+                                                <span class="badge bg-primary-subtle text-primary border border-primary-subtle fw-bold" style="font-size: 10px; padding: 3px 8px;">QRIS</span>
+                                            <?php elseif (strpos($metode, 'tunai') !== false || strpos($metode, 'cash') !== false): ?>
+                                                <span class="badge bg-success-subtle text-success border border-success-subtle fw-bold" style="font-size: 10px; padding: 3px 8px;">Tunai</span>
+                                            <?php else: ?>
+                                                <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle fw-bold" style="font-size: 10px; padding: 3px 8px;"><?= $t->metode_bayar; ?></span>
+                                            <?php endif; ?>
+                                        </td>
                                         <td class="text-end">
                                             Rp <?= number_format($t->harga, 0, ',', '.'); ?>
                                         </td>

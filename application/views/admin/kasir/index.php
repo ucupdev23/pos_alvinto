@@ -1,17 +1,7 @@
 <div class="row g-2">
     <div class="col-12">
 
-        <?php if ($this->session->flashdata('success')): ?>
-            <div class="alert alert-success py-2 mb-2">
-                <?= $this->session->flashdata('success'); ?>
-            </div>
-        <?php endif; ?>
 
-        <?php if ($this->session->flashdata('error')): ?>
-            <div class="alert alert-danger py-2 mb-2">
-                <?= $this->session->flashdata('error'); ?>
-            </div>
-        <?php endif; ?>
 
         <div class="d-flex justify-content-between align-items-center mb-2">
             <h6 class="mb-0">Daftar Kasir</h6>
@@ -60,7 +50,7 @@
                                     </a>
                                     <a href="<?= site_url('admin/kasir/hapus/'.$k->id); ?>"
                                        class="btn btn-sm btn-outline-danger btn-app"
-                                       onclick="return confirm('Nonaktifkan kasir ini?');">
+                                       data-confirm="Nonaktifkan kasir ini?">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </td>

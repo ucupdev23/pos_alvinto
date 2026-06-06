@@ -5,16 +5,25 @@
     <title><?= isset($title) ? $title : 'Alvinto POS'; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Bootstrap Icons (buat icon di bottom nav) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         body {
-            background: #f1f5f9;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f8fafc;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: #1e293b;
         }
 
         .app-wrapper {
@@ -180,6 +189,41 @@
     background: #f5f5f5;
 }
         
+        /* Premium Customizations */
+        .card-app {
+            border-radius: 16px;
+            border: none;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+        }
+        
+        .btn-app {
+            border-radius: 10px;
+            padding: 8px 16px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-app:hover {
+            transform: translateY(-1px);
+        }
+        
+        .app-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Global SweetAlert2 Styling */
+        .swal2-popup {
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 0.85rem !important;
+            border-radius: 16px !important;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+        }
+        .swal2-title {
+            font-weight: 600 !important;
+        }
+        
     </style>
 </head>
 <body>
@@ -245,6 +289,7 @@ endif; ?>
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 function toggleDropdown() {
@@ -255,12 +300,74 @@ function toggleDropdown() {
 // tutup dropdown kalau klik di luar
 document.addEventListener("click", function(e) {
     const dropdown = document.querySelector(".user-dropdown");
-    if (!dropdown.contains(e.target)) {
-        document.getElementById("dropdownMenu").style.display = "none";
+    if (dropdown && !dropdown.contains(e.target)) {
+        const menu = document.getElementById("dropdownMenu");
+        if (menu) menu.style.display = "none";
+    }
+});
+
+// Event listener untuk SweetAlert2 Konfirmasi Global
+document.addEventListener("click", function(e) {
+    const confirmEl = e.target.closest('[data-confirm]');
+    if (confirmEl) {
+        e.preventDefault();
+        const message = confirmEl.getAttribute('data-confirm');
+        const url = confirmEl.getAttribute('href');
+        
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: message,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#64748b',
+            confirmButtonText: 'Ya, Lanjutkan',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = url;
+            }
+        });
     }
 });
 </script>
 
+<!-- Global Toast/Alert Notification from Flashdata -->
+<?php if ($this->session->flashdata('success')): ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+        Toast.fire({
+            icon: 'success',
+            title: <?= json_encode($this->session->flashdata('success')); ?>
+        });
+    });
+</script>
+<?php endif; ?>
+
+<?php if ($this->session->flashdata('error')): ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            title: 'Terjadi Kesalahan',
+            text: <?= json_encode($this->session->flashdata('error')); ?>,
+            icon: 'error',
+            confirmButtonColor: '#dc3545',
+            confirmButtonText: 'OK'
+        });
+    });
+</script>
+<?php endif; ?>
 
 </body>
 </html>

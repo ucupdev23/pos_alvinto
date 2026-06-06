@@ -45,6 +45,11 @@
                             <i class="bi bi-wallet2 me-1"></i> Gaji Kasir
                         </a>
                     </div>
+                    <div class="col-12 mt-2">
+                        <a href="<?= site_url('admin/gaji_karyawan'); ?>" class="btn btn-outline-dark w-100 btn-app">
+                            <i class="bi bi-wallet2 me-1"></i> Gaji Kapster (Slip & WA)
+                        </a>
+                    </div>
                 </div>
 
                 <p class="text-muted mt-3 mb-0" style="font-size: 11px;">

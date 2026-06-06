@@ -103,7 +103,16 @@ class Auth extends CI_Controller
         $otp = $this->User_model->create_otp($user->id);
 
         // Send WA
-        $this->_send_otp_wa($user->no_hp, $otp);
+        $send = $this->_send_otp_wa($user->no_hp, $otp);
+
+        if (!$send['status']) {
+            $err_msg = $send['message'];
+            if (strpos(strtolower($err_msg), 'time') !== false || strpos(strtolower($err_msg), 'timeout') !== false) {
+                $err_msg .= ' (Koneksi ke api.fonnte.com timeout. Kemungkinan besar diblokir oleh provider internet Anda seperti IndiHome/Telkomsel. Silakan gunakan VPN atau ganti koneksi hotspot XL/Indosat/Tri/Smartfren untuk mencoba).';
+            }
+            $this->session->set_flashdata('error', 'Gagal mengirim OTP ke WhatsApp: ' . $err_msg);
+            redirect('auth/lupa_password');
+        }
 
         // Set session temp
         $this->session->set_userdata('reset_user_id', $user->id);
@@ -231,28 +240,6 @@ class Auth extends CI_Controller
         $message .= "Berlaku selama 5 menit.\n\n";
         $message .= "JANGAN BERIKAN KODE INI KEPADA SIAPAPUN.";
 
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.fonnte.com/send',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => array(
-                'target' => $target,
-                'message' => $message,
-                'countryCode' => '62',
-            ),
-            CURLOPT_HTTPHEADER => array(
-                'Authorization: ' . FONNTE_TOKEN
-            ),
-        ));
-
-        $resp = curl_exec($curl);
-        curl_close($curl);
-        return $resp;
+        return send_wa($target, $message);
     }
 }

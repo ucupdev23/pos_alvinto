@@ -1,17 +1,7 @@
 <div class="row g-2">
     <div class="col-12">
 
-        <?php if ($this->session->flashdata('success')): ?>
-            <div class="alert alert-success py-2 mb-2">
-                <?= $this->session->flashdata('success'); ?>
-            </div>
-        <?php endif; ?>
 
-        <?php if ($this->session->flashdata('error')): ?>
-            <div class="alert alert-danger py-2 mb-2">
-                <?= $this->session->flashdata('error'); ?>
-            </div>
-        <?php endif; ?>
 
         <div class="d-flex justify-content-between align-items-center mb-2">
             <h6 class="mb-0">Metode Pembayaran</h6>
@@ -59,7 +49,7 @@
                                         <?php if ($m->status): ?>
                                             <a href="<?= site_url('admin/metode_pembayaran/hapus/' . $m->id); ?>"
                                                class="btn btn-sm btn-outline-danger btn-app"
-                                               onclick="return confirm('Nonaktifkan metode pembayaran ini?');">
+                                               data-confirm="Nonaktifkan metode pembayaran ini?">
                                                 <i class="bi bi-trash"></i>
                                             </a>
                                         <?php endif; ?>

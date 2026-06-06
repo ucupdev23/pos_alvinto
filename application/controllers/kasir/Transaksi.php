@@ -17,6 +17,9 @@ class Transaksi extends MY_Controller
 
     public function index()
     {
+        $today = date('Y-m-d');
+        $kasir_id = $this->session->userdata('user_id');
+
         $data = [
             'title' => 'Input Transaksi',
             'app_title' => 'Kasir Alvinto',
@@ -27,7 +30,8 @@ class Transaksi extends MY_Controller
                 'karyawan' => $this->Karyawan_model->get_all_active(),
                 'jenis_pangkas' => $this->Jenis_pangkas_model->get_all_active(),
                 'metode_bayar' => $this->Metode_pembayaran_model->get_all_active(),
-                'tanggal_hari_ini' => date('Y-m-d')
+                'tanggal_hari_ini' => $today,
+                'transaksi_hari_ini' => $this->Transaksi_model->get_laporan_transaksi($today, $today, $kasir_id)
             ]
         ];
 
@@ -61,6 +65,52 @@ class Transaksi extends MY_Controller
         }
         else {
             $this->session->set_flashdata('error', 'Gagal menyimpan transaksi.');
+        }
+
+        redirect('kasir/transaksi');
+    }
+
+    public function update($id)
+    {
+        $karyawan_id = $this->input->post('karyawan_id', TRUE);
+        $jenis_pangkas_id = $this->input->post('jenis_pangkas_id', TRUE);
+        $metode_pembayaran_id = $this->input->post('metode_pembayaran_id', TRUE);
+
+        if (!$karyawan_id || !$jenis_pangkas_id || !$metode_pembayaran_id) {
+            $this->session->set_flashdata('error', 'Harap lengkapi semua kolom.');
+            redirect('kasir/transaksi');
+        }
+
+        $updated = $this->Transaksi_model->update_transaksi(
+            $id,
+            $karyawan_id,
+            $jenis_pangkas_id,
+            $metode_pembayaran_id
+        );
+
+        if ($updated) {
+            $this->session->set_flashdata('success', 'Transaksi berhasil diperbarui.');
+            // Jika ada info bayar & kembalian untuk struk
+            if ($this->input->post('bayar') !== '') {
+                $this->session->set_flashdata('print_struk_id', $id);
+                $this->session->set_flashdata('bayar', $this->input->post('bayar'));
+                $this->session->set_flashdata('kembalian', $this->input->post('kembalian'));
+            }
+        } else {
+            $this->session->set_flashdata('error', 'Gagal memperbarui transaksi.');
+        }
+
+        redirect('kasir/transaksi');
+    }
+
+    public function hapus($id)
+    {
+        $deleted = $this->Transaksi_model->delete_transaksi($id);
+
+        if ($deleted) {
+            $this->session->set_flashdata('success', 'Transaksi berhasil dihapus.');
+        } else {
+            $this->session->set_flashdata('error', 'Gagal menghapus transaksi.');
         }
 
         redirect('kasir/transaksi');

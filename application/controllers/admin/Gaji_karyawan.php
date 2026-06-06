@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Laporan extends MY_Controller
+class Gaji_karyawan extends MY_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
-        $this->require_login('kasir');
+        $this->require_login('admin');
         $this->load->model('Karyawan_model');
         $this->load->model('Transaksi_model');
         date_default_timezone_set('Asia/Jakarta');
@@ -16,7 +16,7 @@ class Laporan extends MY_Controller
     public function index()
     {
         $karyawan_id = $this->input->get('karyawan_id');
-        $tanggal = $this->input->get('tanggal');
+        $tanggal = $this->input->get('tanggal') ?: date('Y-m-d');
 
         $slip = null;
         $detail = [];
@@ -27,11 +27,11 @@ class Laporan extends MY_Controller
         }
 
         $data = [
-            'title' => 'Slip Gaji Karyawan',
-            'app_title' => 'Kasir Alvinto',
-            'app_subtitle' => 'Slip Gaji Karyawan',
-            'bottom_nav' => $this->kasir_bottom_nav('laporan'),
-            'page' => 'kasir/laporan_slip',
+            'title' => 'Slip Gaji Kapster',
+            'app_title' => 'Admin Alvinto',
+            'app_subtitle' => 'Slip Gaji Kapster',
+            'bottom_nav' => $this->admin_bottom_nav('master'),
+            'page' => 'admin/gaji_karyawan/index',
             'page_data' => [
                 'karyawan' => $this->Karyawan_model->get_all_active(),
                 'karyawan_id' => $karyawan_id,
@@ -51,7 +51,7 @@ class Laporan extends MY_Controller
 
         if (!$karyawan_id || !$tanggal) {
             $this->session->set_flashdata('error', 'Data tidak lengkap.');
-            redirect('kasir/laporan');
+            redirect('admin/gaji_karyawan');
         }
 
         // 1. Ambil data slip & karyawan
@@ -60,12 +60,12 @@ class Laporan extends MY_Controller
 
         if (!$slip || !$karyawan) {
             $this->session->set_flashdata('error', 'Data gaji tidak ditemukan.');
-            redirect('kasir/laporan?karyawan_id=' . $karyawan_id . '&tanggal=' . $tanggal);
+            redirect('admin/gaji_karyawan?karyawan_id=' . $karyawan_id . '&tanggal=' . $tanggal);
         }
 
         if (empty($karyawan->no_hp)) {
             $this->session->set_flashdata('error', 'Nomor HP karyawan belum diatur.');
-            redirect('kasir/laporan?karyawan_id=' . $karyawan_id . '&tanggal=' . $tanggal);
+            redirect('admin/gaji_karyawan?karyawan_id=' . $karyawan_id . '&tanggal=' . $tanggal);
         }
 
         // 2. Simpan history gaji (jika belum ada)
@@ -96,9 +96,6 @@ class Laporan extends MY_Controller
             $message .= "\n";
         }
 
-        $profit = $slip['total_omzet'] - $slip['total_gaji'];
-        $profit_formatted = number_format($profit, 0, ',', '.');
-
         $message .= "Total Omzet: Rp $omzet\n";
         $message .= "Upah (50%): Rp $upah\n";
         $message .= "Uang Makan: Rp $makan\n";
@@ -115,6 +112,6 @@ class Laporan extends MY_Controller
             $this->session->set_flashdata('error', 'Gagal mengirim WA: ' . $res['message']);
         }
 
-        redirect('kasir/laporan?karyawan_id=' . $karyawan_id . '&tanggal=' . $tanggal);
+        redirect('admin/gaji_karyawan?karyawan_id=' . $karyawan_id . '&tanggal=' . $tanggal);
     }
 }

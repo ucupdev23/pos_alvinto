@@ -191,29 +191,11 @@ class Gaji_kasir extends MY_Controller
         
         $message .= "\n_Terima kasih atas kerja keras Anda!_ 🙏";
 
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.fonnte.com/send',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => array(
-                'target' => $kasir->no_hp,
-                'message' => $message,
-                'countryCode' => '62',
-            ),
-            CURLOPT_HTTPHEADER => array(
-                'Authorization: ' . FONNTE_TOKEN
-            ),
-        ));
-
-        $resp = curl_exec($curl);
-        curl_close($curl);
-        
-        echo json_encode(['status' => true, 'message' => 'Slip gaji periode berhasil dikirim']);
+        $res = send_wa($kasir->no_hp, $message);
+        if ($res['status']) {
+            echo json_encode(['status' => true, 'message' => 'Slip gaji periode berhasil dikirim']);
+        } else {
+            echo json_encode(['status' => false, 'message' => 'Gagal mengirim WA: ' . $res['message']]);
+        }
     }
 }

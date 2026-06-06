@@ -53,7 +53,7 @@
                                         <?php if ($j->status): ?>
                                             <a href="<?= site_url('admin/jenis_pangkas/hapus/'.$j->id); ?>"
                                                class="btn btn-sm btn-outline-danger btn-app"
-                                               onclick="return confirm('Nonaktifkan jenis pangkas ini?');">
+                                               data-confirm="Nonaktifkan jenis pangkas ini?">
                                                 <i class="bi bi-trash"></i>
                                             </a>
                                         <?php endif; ?>

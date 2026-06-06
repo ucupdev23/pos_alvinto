@@ -1,8 +1,18 @@
 <div class="row g-2">
     <div class="col-12">
-        <div class="card card-app mb-2">
+        
+        <!-- Back Button & Title -->
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="mb-0 fw-bold"><i class="bi bi-wallet2 me-1"></i> Slip Gaji Kapster</h6>
+            <a href="<?= site_url('admin/master'); ?>" class="btn btn-outline-dark btn-sm btn-app py-1 px-3">
+                <i class="bi bi-arrow-left me-1"></i> Kembali
+            </a>
+        </div>
+
+        <!-- Filter Card -->
+        <div class="card card-app mb-2 shadow-sm">
             <div class="card-body">
-                <form method="get" action="<?= site_url('kasir/laporan'); ?>">
+                <form method="get" action="<?= site_url('admin/gaji_karyawan'); ?>">
                     <div class="mb-2">
                         <label class="form-label small">Kapster</label>
                         <select name="karyawan_id" class="form-select form-select-sm" required>
@@ -11,8 +21,7 @@
                                 <option value="<?= $k->id; ?>" <?= ($karyawan_id == $k->id ? 'selected' : ''); ?>>
                                     <?= $k->nama; ?>
                                 </option>
-                                <?php
-                            endforeach; ?>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
@@ -26,8 +35,7 @@
                         <button type="submit" class="btn btn-dark w-100 btn-app">
                             <i class="bi bi-search me-1"></i> Tampilkan Slip
                         </button>
-
-                        <a href="<?= site_url('kasir/laporan'); ?>" class="btn btn-outline-secondary btn-app">
+                        <a href="<?= site_url('admin/gaji_karyawan'); ?>" class="btn btn-outline-secondary btn-app">
                             <i class="bi bi-arrow-clockwise"></i>
                         </a>
                     </div>
@@ -35,22 +43,9 @@
             </div>
         </div>
 
-        <?php if ($this->session->flashdata('success')): ?>
-            <div class="alert alert-success py-2 mb-2">
-                <?= $this->session->flashdata('success'); ?>
-            </div>
-            <?php
-        endif; ?>
-
-        <?php if ($this->session->flashdata('error')): ?>
-            <div class="alert alert-danger py-2 mb-2">
-                <?= $this->session->flashdata('error'); ?>
-            </div>
-            <?php
-        endif; ?>
-
+        <!-- Rincian Slip Gaji -->
         <?php if ($karyawan_id && $tanggal): ?>
-            <div class="card card-app">
+            <div class="card card-app shadow-sm">
                 <div class="card-body">
                     <?php if ($slip): ?>
                         <div class="d-flex justify-content-between mb-2">
@@ -64,7 +59,7 @@
                             </div>
                         </div>
 
-                        <hr>
+                        <hr class="my-2">
 
                         <table class="table table-sm mb-2" style="font-size: 12px;">
                             <tr>
@@ -93,64 +88,63 @@
                         </table>
 
                         <?php if (!empty($detail)): ?>
-                            <p class="text-muted mb-1" style="font-size: 11px;">Detail potongan hari ini:</p>
-                            <table class="table table-sm" style="font-size: 11px;">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Jenis</th>
-                                        <th>Metode</th>
-                                        <th class="text-center">Qty</th>
-                                        <th class="text-end">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1;
-                                    foreach ($detail as $d): ?>
+                            <p class="text-muted mb-1 mt-3" style="font-size: 11px;">Detail potongan hari ini:</p>
+                            <div class="table-responsive">
+                                <table class="table table-sm" style="font-size: 11px;">
+                                    <thead>
                                         <tr>
-                                            <td><?= $no++; ?></td>
-                                            <td><?= $d->jenis_pangkas; ?></td>
-                                            <td>
-                                                <?php 
-                                                $metode = strtolower($d->metode_bayar);
-                                                if (strpos($metode, 'qris') !== false): ?>
-                                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle fw-bold" style="font-size: 10px; padding: 2px 6px;">QRIS</span>
-                                                <?php elseif (strpos($metode, 'tunai') !== false || strpos($metode, 'cash') !== false): ?>
-                                                    <span class="badge bg-success-subtle text-success border border-success-subtle fw-bold" style="font-size: 10px; padding: 2px 6px;">Tunai</span>
-                                                <?php else: ?>
-                                                    <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle fw-bold" style="font-size: 10px; padding: 2px 6px;"><?= $d->metode_bayar; ?></span>
-                                                <?php endif; ?>
-                                            </td>
-                                            <td class="text-center"><?= $d->qty; ?></td>
-                                            <td class="text-end">
-                                                Rp <?= number_format($d->total_harga, 0, ',', '.'); ?>
-                                            </td>
+                                            <th>No</th>
+                                            <th>Jenis</th>
+                                            <th>Metode</th>
+                                            <th class="text-center">Qty</th>
+                                            <th class="text-end">Total</th>
                                         </tr>
-                                        <?php
-                                    endforeach; ?>
-                                </tbody>
-                            </table>
-                            <?php
-                        endif; ?>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = 1;
+                                        foreach ($detail as $d): ?>
+                                            <tr>
+                                                <td><?= $no++; ?></td>
+                                                <td><?= $d->jenis_pangkas; ?></td>
+                                                <td>
+                                                    <?php 
+                                                    $metode = strtolower($d->metode_bayar);
+                                                    if (strpos($metode, 'qris') !== false): ?>
+                                                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle fw-bold" style="font-size: 10px; padding: 2px 6px;">QRIS</span>
+                                                    <?php elseif (strpos($metode, 'tunai') !== false || strpos($metode, 'cash') !== false): ?>
+                                                        <span class="badge bg-success-subtle text-success border border-success-subtle fw-bold" style="font-size: 10px; padding: 2px 6px;">Tunai</span>
+                                                    <?php else: ?>
+                                                        <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle fw-bold" style="font-size: 10px; padding: 2px 6px;"><?= $d->metode_bayar; ?></span>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td class="text-center"><?= $d->qty; ?></td>
+                                                <td class="text-end">
+                                                    Rp <?= number_format($d->total_harga, 0, ',', '.'); ?>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php endif; ?>
 
-                        <form action="<?= site_url('kasir/laporan/kirim_wa'); ?>" method="post">
+                        <form action="<?= site_url('admin/gaji_karyawan/kirim_wa'); ?>" method="post">
                             <input type="hidden" name="karyawan_id" value="<?= $karyawan_id; ?>">
                             <input type="hidden" name="tanggal" value="<?= $tanggal; ?>">
                             <button type="submit" class="btn btn-success w-100 btn-app mt-2">
-                                <i class="bi bi-whatsapp me-1"></i> Kirim Slip ke WA
+                                <i class="bi bi-whatsapp me-1"></i> Kirim Slip ke WA Karyawan
                             </button>
                         </form>
 
-                        <?php
-                    else: ?>
-                        <p class="text-center text-muted mb-0" style="font-size: 12px;">
+                    <?php else: ?>
+                        <p class="text-center text-muted mb-0 py-3" style="font-size: 12px;">
+                            <i class="bi bi-inbox me-1" style="font-size: 16px;"></i><br>
                             Tidak ada transaksi untuk kapster dan tanggal tersebut.
                         </p>
-                        <?php
-                    endif; ?>
+                    <?php endif; ?>
                 </div>
             </div>
-            <?php
-        endif; ?>
+        <?php endif; ?>
     </div>
 </div>
+

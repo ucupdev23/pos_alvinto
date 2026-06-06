@@ -1,21 +1,5 @@
-<!-- SweetAlert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <div class="row g-2">
     <div class="col-12">
-
-        <!-- Flash messages -->
-        <?php if ($this->session->flashdata('success')): ?>
-            <div class="alert alert-success py-2 mb-2" style="font-size: 12px; border-radius: 8px;">
-                <i class="bi bi-check-circle-fill me-1"></i> <?= $this->session->flashdata('success'); ?>
-            </div>
-        <?php endif; ?>
-        <?php if ($this->session->flashdata('error')): ?>
-            <div class="alert alert-danger py-2 mb-2" style="font-size: 12px; border-radius: 8px;">
-                <i class="bi bi-exclamation-triangle-fill me-1"></i> <?= $this->session->flashdata('error'); ?>
-            </div>
-        <?php endif; ?>
-
         <!-- Title & Back to Dashboard -->
         <div class="d-flex justify-content-between align-items-center mb-2">
             <h6 class="mb-0 fw-bold"><i class="bi bi-trash3 me-1 text-danger"></i> Pengaturan Hapus Data</h6>
@@ -171,7 +155,15 @@
                                             <td><?= $t->jenis_pangkas; ?></td>
                                             <td class="text-muted"><?= $t->nama_kasir; ?></td>
                                             <td>
-                                                <span class="badge bg-light text-dark border"><?= $t->metode_bayar; ?></span>
+                                                <?php 
+                                                $metode = strtolower($t->metode_bayar);
+                                                if (strpos($metode, 'qris') !== false): ?>
+                                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle fw-bold" style="font-size: 10px; padding: 3px 8px;">QRIS</span>
+                                                <?php elseif (strpos($metode, 'tunai') !== false || strpos($metode, 'cash') !== false): ?>
+                                                    <span class="badge bg-success-subtle text-success border border-success-subtle fw-bold" style="font-size: 10px; padding: 3px 8px;">Tunai</span>
+                                                <?php else: ?>
+                                                    <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle fw-bold" style="font-size: 10px; padding: 3px 8px;"><?= $t->metode_bayar; ?></span>
+                                                <?php endif; ?>
                                             </td>
                                             <td class="text-end fw-semibold">
                                                 Rp <?= number_format($t->harga, 0, ',', '.'); ?>

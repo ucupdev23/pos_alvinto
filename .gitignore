@@ -8,6 +8,8 @@ application/logs/*
 
 !application/*/.htaccess
 
+pos_alvinto_estimation.md
+
 composer.lock
 tests/mocks/database/ci_test.sqlite
 

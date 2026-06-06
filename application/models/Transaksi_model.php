@@ -503,6 +503,47 @@ class Transaksi_model extends CI_Model
         }
     }
 
+    public function update_transaksi($id, $karyawan_id, $jenis_pangkas_id, $metode_pembayaran_id)
+    {
+        // Ambil data asli transaksi sebelum diupdate
+        $tx = $this->db->get_where('transaksi', ['id' => $id])->row();
+        if (!$tx) {
+            return false;
+        }
+
+        $old_karyawan_id = $tx->karyawan_id;
+        $old_tanggal = $tx->tanggal;
+
+        // Ambil harga baru dari jenis pangkas
+        $jenis = $this->db->get_where('jenis_pangkas', ['id' => $jenis_pangkas_id, 'status' => 1])->row();
+        if (!$jenis) {
+            return false;
+        }
+
+        $data = [
+            'karyawan_id' => $karyawan_id,
+            'jenis_pangkas_id' => $jenis_pangkas_id,
+            'metode_pembayaran_id' => $metode_pembayaran_id,
+            'harga' => $jenis->harga
+        ];
+
+        $this->db->where('id', $id);
+        $updated = $this->db->update('transaksi', $data);
+
+        if ($updated) {
+            // Kalkulasi ulang gaji karyawan lama
+            $this->recalculate_gaji_karyawan($old_karyawan_id, $old_tanggal);
+
+            // Jika karyawannya berubah, kalkulasi juga untuk yang baru
+            if ($old_karyawan_id != $karyawan_id) {
+                $this->recalculate_gaji_karyawan($karyawan_id, $old_tanggal);
+            }
+            return true;
+        }
+
+        return false;
+    }
+
     public function delete_transaksi($id)
     {
         // Ambil data transaksi dulu untuk tau karyawan_id dan tanggal
