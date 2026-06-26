@@ -9,7 +9,9 @@
                     $kembalian = $this->session->flashdata('kembalian') ?: 0;
                     $printUrlHtml = site_url("kasir/transaksi/struk/{$strukId}?bayar={$bayar}&kembalian={$kembalian}");
                     $printUrlJson = site_url("cetak/struk_json/{$strukId}?bayar={$bayar}&kembalian={$kembalian}");
-                    $bluetoothAppUrl = "my.bluetoothprint.scheme://" . $printUrlJson;
+                    // Paksa menggunakan HTTP agar tidak terbentur SSL error di HP Android lama
+                    $printUrlJsonHttp = str_replace("https://", "http://", $printUrlJson);
+                    $bluetoothAppUrl = "my.bluetoothprint.scheme://" . $printUrlJsonHttp;
                     ?>
                     <div class="mt-2 d-flex gap-2 flex-wrap">
                         <a href="<?= $printUrlHtml; ?>" target="_blank" class="btn btn-sm btn-light text-success border-success fw-bold">
@@ -149,10 +151,14 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="dropdown-item py-1 text-success" href="my.bluetoothprint.scheme://<?= site_url("cetak/struk_json/{$t->id}"); ?>" style="font-size: 11px;">
+                                                    <?php 
+                                                    $androidPrintUrl = site_url("cetak/struk_json/{$t->id}");
+                                                    $androidPrintUrlHttp = str_replace("https://", "http://", $androidPrintUrl);
+                                                    ?>
+                                                    <a class="dropdown-item py-1 text-success" href="my.bluetoothprint.scheme://<?= $androidPrintUrlHttp; ?>" style="font-size: 11px;">
                                                         <i class="bi bi-bluetooth me-1"></i> Cetak Android
                                                     </a>
-                                                </li>
+                                                 </li>
                                             </ul>
                                         </div>
                                         

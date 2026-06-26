@@ -2,6 +2,14 @@ RewriteEngine On
 # RewriteBase /pos_alvinto/
 RewriteBase /
 
+# Redirect ke HTTPS kecuali untuk localhost, IP local, atau endpoint cetak struk
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} !^localhost$ [NC]
+RewriteCond %{HTTP_HOST} !^192\.168\. [NC]
+RewriteCond %{REQUEST_URI} !/cetak/ [NC]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
 # Redirect ke index.php jika file/folder tidak ditemukan
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
