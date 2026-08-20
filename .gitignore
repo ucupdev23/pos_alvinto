@@ -9,6 +9,7 @@ application/logs/*
 !application/*/.htaccess
 
 pos_alvinto_estimation.md
+panduan_cetak_laptop.md
 
 composer.lock
 tests/mocks/database/ci_test.sqlite
