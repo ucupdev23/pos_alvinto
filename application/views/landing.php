@@ -2,28 +2,29 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 $base = base_url();
 $logo_url = base_url('assets/logo.png');
-$wa_number = '6285691489851';
+$wa_number = '6287870708254';
 $wa_link = 'https://wa.me/' . $wa_number . '?text=' . urlencode('Halo Alvinto Haircut, saya ingin tanya layanan dan lokasi barbershop.');
 $tiktok_url = 'https://www.tiktok.com/@alvinto_barberian';
 $instagram_url = 'https://instagram.com/alvinto_haircut';
 
 // Mapping deskripsi unik per jenis layanan (keyword matching)
 $desc_map = [
-    'anak'      => 'Buat si kecil (0–10 tahun). Ada kursi mobil-mobilan biar anteng & happy pas dicukur.',
-    'remaja'    => 'Buat kamu yang masih sekolah (SMP–SMA). Gaya kekinian, harga kantong pelajar.',
-    'tanggung'  => 'Udah bukan bocil, belum om-om juga. Potongan fresh buat yang lagi tumbuh gede.',
-    'dewasa'    => 'Buat abang 17 tahun ke atas. Konsultasi model, potong rapi, finishing styling.',
-    'cuci'      => 'Keramas seger + pijat kepala ringan + styling pomade.',
-    'kumis'     => 'Rapihin kumis & jenggot pakai razor steril + foam lembut.',
-    'jenggot'   => 'Rapihin kumis & jenggot pakai razor steril + foam lembut.',
-    'cukur'     => 'Rapihin kumis & jenggot pakai razor steril + foam lembut.',
-    'semir'     => 'Warna hitam natural atau warna kekinian sesuai request kamu.',
+    'anak' => 'Buat si kecil (0–10 tahun). Suasana kids friendly biar anak anteng & happy pas dicukur.',
+    'remaja' => 'Buat kamu yang masih sekolah (SMP–SMA). Gaya kekinian, harga kantong pelajar.',
+    'tanggung' => 'Udah bukan bocil, belum om-om juga. Potongan fresh buat yang lagi tumbuh gede.',
+    'dewasa' => 'Buat abang 25 tahun ke atas. Konsultasi model, potong rapi, finishing styling.',
+    'cuci' => 'Keramas seger + pijat kepala ringan + styling pomade.',
+    'kumis' => 'Rapihin kumis & jenggot pakai razor steril + foam lembut.',
+    'jenggot' => 'Rapihin kumis & jenggot pakai razor steril + foam lembut.',
+    'cukur' => 'Rapihin kumis & jenggot pakai razor steril + foam lembut.',
+    'semir' => 'Warna hitam natural atau warna kekinian sesuai request kamu.',
     'pewarnaan' => 'Warna hitam natural atau warna kekinian sesuai request kamu.',
-    'paket'     => 'Pangkas + cuci + shaving + pijat + pomade. All-in-one, tinggal duduk.',
-    'komplit'   => 'Pangkas + cuci + shaving + pijat + pomade. All-in-one, tinggal duduk.',
+    'paket' => 'Pangkas + cuci + shaving + pijat + pomade. All-in-one, tinggal duduk.',
+    'komplit' => 'Pangkas + cuci + shaving + pijat + pomade. All-in-one, tinggal duduk.',
 ];
 
-function get_service_desc($nama, $map) {
+function get_service_desc($nama, $map)
+{
     $lower = strtolower($nama);
     foreach ($map as $key => $desc) {
         if (strpos($lower, $key) !== false) {
@@ -35,15 +36,20 @@ function get_service_desc($nama, $map) {
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= isset($title) ? $title : 'Alvinto Haircut - Barbershop Specialist Pria & Anak di Kota Bogor | Est. 2015'; ?></title>
+    <title>
+        <?= isset($title) ? $title : 'Alvinto Haircut - Barbershop Specialist Pria & Anak di Kota Bogor | Est. 2015'; ?>
+    </title>
 
     <!-- SEO Primary Meta Tags -->
     <meta name="title" content="Alvinto Haircut - Barbershop Specialist Pria & Anak di Kota Bogor">
-    <meta name="description" content="Alvinto Haircut adalah barbershop specialist pria dan anak di Kota Bogor sejak 2015. 3 cabang strategis: Mekar Sari, Gunung Batu, dan Kebon Kelapa. Tempat nyaman ber-AC & kapster berpengalaman.">
-    <meta name="keywords" content="barbershop bogor, pangkas rambut bogor, potong rambut pria bogor, barbershop anak bogor, alvinto haircut, pangkas rambut mekar sari, pangkas rambut gunung batu, pangkas rambut kebon kelapa, barbershop terbaik di bogor">
+    <meta name="description"
+        content="Alvinto Haircut adalah barbershop specialist pria dan anak di Kota Bogor sejak 2015. 3 cabang strategis: Sindang Sari, Mekar Sari, dan Gunung Batu. Tempat bersih, nyaman & kapster berpengalaman.">
+    <meta name="keywords"
+        content="barbershop bogor, pangkas rambut bogor, potong rambut pria bogor, barbershop anak bogor, alvinto haircut, pangkas rambut sindang sari, pangkas rambut mekar sari, pangkas rambut gunung batu, barbershop terbaik di bogor">
     <meta name="author" content="Alvinto Haircut">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="<?= base_url(); ?>">
@@ -52,14 +58,16 @@ function get_service_desc($nama, $map) {
     <meta property="og:type" content="website">
     <meta property="og:url" content="<?= base_url(); ?>">
     <meta property="og:title" content="Alvinto Haircut - Barbershop Specialist Pria & Anak di Kota Bogor">
-    <meta property="og:description" content="Potongan rapi, gaya maksimal! Barbershop terpercaya di Kota Bogor sejak 2015 dengan 3 cabang: Mekar Sari, Gunung Batu, dan Kebon Kelapa.">
+    <meta property="og:description"
+        content="Potongan rapi, gaya maksimal! Barbershop terpercaya di Kota Bogor sejak 2015 dengan 3 cabang: Sindang Sari, Mekar Sari, dan Gunung Batu.">
     <meta property="og:image" content="<?= base_url('assets/img/5.webp'); ?>">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="<?= base_url(); ?>">
     <meta property="twitter:title" content="Alvinto Haircut - Barbershop Specialist Pria & Anak di Kota Bogor">
-    <meta property="twitter:description" content="Potongan rapi, gaya maksimal! Barbershop terpercaya di Kota Bogor sejak 2015 dengan 3 cabang.">
+    <meta property="twitter:description"
+        content="Potongan rapi, gaya maksimal! Barbershop terpercaya di Kota Bogor sejak 2015 dengan 3 cabang.">
     <meta property="twitter:image" content="<?= base_url('assets/img/5.webp'); ?>">
 
     <!-- Favicon -->
@@ -68,14 +76,16 @@ function get_service_desc($nama, $map) {
     <!-- Google Fonts: Space Grotesk (heading) + Inter (body) — only 2 fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- Prevent flash of wrong theme -->
     <script>
-        (function(){
+        (function () {
             var t = localStorage.getItem('alvinto-theme');
             if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
         })();
@@ -91,7 +101,7 @@ function get_service_desc($nama, $map) {
       "logo": "<?= $logo_url; ?>",
       "@id": "<?= base_url(); ?>",
       "url": "<?= base_url(); ?>",
-      "telephone": "+6285691489851",
+      "telephone": "<?= $wa_number; ?>",
       "priceRange": "$$",
       "description": "Barbershop spesialis potong rambut pria dan anak-anak di Kota Bogor sejak 2015.",
       "foundingDate": "2015",
@@ -112,7 +122,7 @@ function get_service_desc($nama, $map) {
       ],
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Blok Mekar Sari Jalan Ledeng Blok Mekar Sari No.26, RT.01/RW.07, Kb. Klp., Kecamatan Bogor Tengah",
+        "streetAddress": "Sindang Sari, Kecamatan Bogor Tengah",
         "addressLocality": "Kota Bogor",
         "addressRegion": "Jawa Barat",
         "postalCode": "16125",
@@ -126,21 +136,21 @@ function get_service_desc($nama, $map) {
       "department": [
         {
           "@type": "BarberShop",
-          "name": "Alvinto Haircut - Cabang Mekar Sari (Pusat)",
-          "address": "Blok Mekar Sari Jalan Ledeng Blok Mekar Sari No.26, RT.01/RW.07, Kb. Klp., Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16125",
+          "name": "Alvinto Haircut - Cabang Sindang Sari (Pusat)",
+          "address": "Sindang Sari, Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16125",
           "hasMap": "https://maps.app.goo.gl/7u2TKqKLU15zgUmGA"
+        },
+        {
+          "@type": "BarberShop",
+          "name": "Alvinto Haircut - Cabang Mekar Sari",
+          "address": "Mekar Sari Jl. Ledeng, Kota Bogor, Jawa Barat",
+          "hasMap": "https://maps.app.goo.gl/FXwmaaArc85Xwtfe9"
         },
         {
           "@type": "BarberShop",
           "name": "Alvinto Haircut - Cabang Gunung Batu",
           "address": "Gunung Batu, Kota Bogor, Jawa Barat",
           "hasMap": "https://maps.app.goo.gl/bDwRTvBbMSpia8YEA"
-        },
-        {
-          "@type": "BarberShop",
-          "name": "Alvinto Haircut - Cabang Kebon Kelapa",
-          "address": "Kebon Kelapa, Kota Bogor, Jawa Barat",
-          "hasMap": "https://maps.app.goo.gl/FXwmaaArc85Xwtfe9"
         }
       ]
     }
@@ -193,7 +203,9 @@ function get_service_desc($nama, $map) {
         /* ===========================================
            RESET & BASE
         =========================================== */
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -213,9 +225,19 @@ function get_service_desc($nama, $map) {
             -webkit-font-smoothing: antialiased;
         }
 
-        a { color: inherit; text-decoration: none; }
-        img { display: block; max-width: 100%; }
-        ul { list-style: none; }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        ul {
+            list-style: none;
+        }
 
         .container {
             max-width: 1120px;
@@ -231,6 +253,7 @@ function get_service_desc($nama, $map) {
             transform: translateY(24px);
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
+
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
@@ -504,8 +527,13 @@ function get_service_desc($nama, $map) {
         }
 
         @keyframes scroll-marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         /* ===========================================
@@ -572,7 +600,9 @@ function get_service_desc($nama, $map) {
             border-bottom: none;
         }
 
-        .price-info { flex: 1; }
+        .price-info {
+            flex: 1;
+        }
 
         .price-name {
             font-family: var(--font-h);
@@ -643,7 +673,7 @@ function get_service_desc($nama, $map) {
             left: 0;
             right: 0;
             padding: 14px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.65));
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.65));
             opacity: 0;
             transition: opacity 0.3s;
             z-index: 2;
@@ -1100,7 +1130,9 @@ function get_service_desc($nama, $map) {
             color: #FFFFFF;
         }
 
-        .floating-wa i { font-size: 20px; }
+        .floating-wa i {
+            font-size: 20px;
+        }
 
         /* ===========================================
            LIGHTBOX
@@ -1116,7 +1148,9 @@ function get_service_desc($nama, $map) {
             padding: 20px;
         }
 
-        .lightbox.open { display: flex; }
+        .lightbox.open {
+            display: flex;
+        }
 
         .lightbox-inner {
             max-width: 860px;
@@ -1145,7 +1179,9 @@ function get_service_desc($nama, $map) {
             transition: opacity 0.2s;
         }
 
-        .lightbox-close:hover { opacity: 1; }
+        .lightbox-close:hover {
+            opacity: 1;
+        }
 
         .lightbox-caption {
             text-align: center;
@@ -1163,26 +1199,42 @@ function get_service_desc($nama, $map) {
                 grid-template-columns: 1fr;
                 gap: 36px;
             }
-            .hero-photo img { height: 300px; }
+
+            .hero-photo img {
+                height: 300px;
+            }
+
             .about-grid {
                 grid-template-columns: 1fr;
                 gap: 36px;
             }
-            .about-photo { order: -1; }
-            .about-photo img { height: 320px; }
+
+            .about-photo {
+                order: -1;
+            }
+
+            .about-photo img {
+                height: 320px;
+            }
+
             .branches-grid,
             .reviews-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
             .footer-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
-            .section { padding: 56px 0; }
+            .section {
+                padding: 56px 0;
+            }
 
-            .mobile-toggle { display: block; }
+            .mobile-toggle {
+                display: block;
+            }
 
             .nav-links {
                 position: fixed;
@@ -1197,15 +1249,34 @@ function get_service_desc($nama, $map) {
                 display: none;
                 z-index: 89;
             }
-            .nav-links.show { display: flex; }
-            .nav-links a { font-size: 16px; }
 
-            .nav-btn-primary { display: none; }
+            .nav-links.show {
+                display: flex;
+            }
 
-            .hero { padding: 44px 0 36px; }
-            .hero-logo img { height: 60px; }
-            .hero-stats { gap: 24px; }
-            .hero-stat-num { font-size: 22px; }
+            .nav-links a {
+                font-size: 16px;
+            }
+
+            .nav-btn-primary {
+                display: none;
+            }
+
+            .hero {
+                padding: 44px 0 36px;
+            }
+
+            .hero-logo img {
+                height: 60px;
+            }
+
+            .hero-stats {
+                gap: 24px;
+            }
+
+            .hero-stat-num {
+                font-size: 22px;
+            }
 
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -1213,16 +1284,23 @@ function get_service_desc($nama, $map) {
             }
 
             .branches-grid,
-            .reviews-grid { grid-template-columns: 1fr; }
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
 
             .footer-grid {
                 grid-template-columns: 1fr;
                 gap: 28px;
             }
 
-            .cta-banner { padding: 36px 20px; }
+            .cta-banner {
+                padding: 36px 20px;
+            }
 
-            .floating-wa span { display: none; }
+            .floating-wa span {
+                display: none;
+            }
+
             .floating-wa {
                 padding: 14px;
                 border-radius: 50%;
@@ -1234,15 +1312,23 @@ function get_service_desc($nama, $map) {
                 font-size: 30px;
                 letter-spacing: -0.8px;
             }
+
             .hero-cta .btn {
                 width: 100%;
                 justify-content: center;
             }
-            .price-name { font-size: 15px; }
-            .price-amount { font-size: 16px; }
+
+            .price-name {
+                font-size: 15px;
+            }
+
+            .price-amount {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <!-- ==========================================
@@ -1271,7 +1357,8 @@ function get_service_desc($nama, $map) {
                     <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema gelap/terang">
                         <i class="bi bi-moon-fill"></i>
                     </button>
-                    <a href="<?= $wa_link; ?>" target="_blank" rel="noopener noreferrer" class="nav-btn nav-btn-primary">
+                    <a href="<?= $wa_link; ?>" target="_blank" rel="noopener noreferrer"
+                        class="nav-btn nav-btn-primary">
                         <i class="bi bi-whatsapp"></i> WhatsApp
                     </a>
                     <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
@@ -1292,7 +1379,8 @@ function get_service_desc($nama, $map) {
                     <div class="hero-content">
                         <h1>Ganteng itu<br>butuh <span class="accent">proses.</span></h1>
                         <p class="hero-sub">
-                            Barbershop langganan anak Bogor sejak 2015. Tiga cabang, kapster yang ngerti gaya kekinian, harga yang nggak bikin nangis.
+                            Barbershop langganan anak Bogor sejak 2015. Tiga cabang, kapster yang ngerti gaya kekinian,
+                            harga yang nggak bikin nangis.
                         </p>
                         <div class="hero-cta">
                             <a href="<?= $wa_link; ?>" target="_blank" rel="noopener noreferrer" class="btn btn-blue">
@@ -1318,7 +1406,8 @@ function get_service_desc($nama, $map) {
                         </div>
                     </div>
                     <div class="hero-photo">
-                        <img src="<?= base_url('assets/img/2.webp'); ?>" alt="Suasana barbershop Alvinto Haircut Bogor" width="600" height="420" loading="eager">
+                        <img src="<?= base_url('assets/img/2.webp'); ?>" alt="Suasana barbershop Alvinto Haircut Bogor"
+                            width="600" height="420" loading="eager">
                     </div>
                 </div>
             </div>
@@ -1330,12 +1419,12 @@ function get_service_desc($nama, $map) {
         <div class="marquee" aria-hidden="true">
             <div class="marquee-track">
                 <?php for ($i = 0; $i < 2; $i++): ?>
-                <span class="marquee-text">Specialist Men & Kids</span>
-                <span class="marquee-text">Est. 2015</span>
-                <span class="marquee-text">3 Cabang di Bogor</span>
-                <span class="marquee-text">Ganteng Itu Butuh Proses</span>
-                <span class="marquee-text">Walk-in Welcome</span>
-                <span class="marquee-text">Buka 10.00 &mdash; 21.00</span>
+                    <span class="marquee-text">Specialist Men & Kids</span>
+                    <span class="marquee-text">Est. 2015</span>
+                    <span class="marquee-text">3 Cabang di Bogor</span>
+                    <span class="marquee-text">Ganteng Itu Butuh Proses</span>
+                    <span class="marquee-text">Walk-in Welcome</span>
+                    <span class="marquee-text">Buka 10.00 &mdash; 21.00</span>
                 <?php endfor; ?>
             </div>
         </div>
@@ -1368,28 +1457,32 @@ function get_service_desc($nama, $map) {
                         <div class="price-item">
                             <div class="price-info">
                                 <div class="price-name">Pangkas Anak-anak</div>
-                                <div class="price-desc">Buat si kecil (0–10 tahun). Ada kursi mobil-mobilan biar anteng & happy pas dicukur.</div>
+                                <div class="price-desc">Buat si kecil (0–10 tahun). Suasana kids friendly biar anak
+                                    anteng & happy pas dicukur.</div>
                             </div>
                             <div class="price-amount">Rp 15.000</div>
                         </div>
                         <div class="price-item">
                             <div class="price-info">
                                 <div class="price-name">Pangkas Remaja</div>
-                                <div class="price-desc">Buat kamu yang masih sekolah (SMP–SMA). Gaya kekinian, harga kantong pelajar.</div>
+                                <div class="price-desc">Buat kamu yang masih sekolah (SMP–SMA). Gaya kekinian, harga kantong
+                                    pelajar.</div>
                             </div>
                             <div class="price-amount">Rp 17.000</div>
                         </div>
                         <div class="price-item">
                             <div class="price-info">
                                 <div class="price-name">Pangkas Tanggung</div>
-                                <div class="price-desc">Udah bukan bocil, belum om-om juga. Potongan fresh buat yang lagi tumbuh gede.</div>
+                                <div class="price-desc">Udah bukan bocil, belum om-om juga. Potongan fresh buat yang lagi
+                                    tumbuh gede.</div>
                             </div>
                             <div class="price-amount">Rp 20.000</div>
                         </div>
                         <div class="price-item">
                             <div class="price-info">
                                 <div class="price-name">Pangkas Dewasa</div>
-                                <div class="price-desc">Buat abang 17 tahun ke atas. Konsultasi model, potong rapi, finishing styling.</div>
+                                <div class="price-desc">Buat abang 25 tahun ke atas. Konsultasi model, potong rapi,
+                                    finishing styling.</div>
                             </div>
                             <div class="price-amount">Rp 25.000</div>
                         </div>
@@ -1439,9 +1532,11 @@ function get_service_desc($nama, $map) {
                         ['img' => '9.webp', 'title' => 'Hasil rapi maksimal'],
                     ];
                     foreach ($galleries as $g):
-                    ?>
-                        <div class="gallery-item" onclick="openLightbox('<?= base_url('assets/img/' . $g['img']); ?>', '<?= $g['title']; ?>')">
-                            <img src="<?= base_url('assets/img/' . $g['img']); ?>" alt="<?= $g['title']; ?> - Alvinto Haircut Bogor" loading="lazy">
+                        ?>
+                        <div class="gallery-item"
+                            onclick="openLightbox('<?= base_url('assets/img/' . $g['img']); ?>', '<?= $g['title']; ?>')">
+                            <img src="<?= base_url('assets/img/' . $g['img']); ?>"
+                                alt="<?= $g['title']; ?> - Alvinto Haircut Bogor" loading="lazy">
                             <div class="gallery-caption">
                                 <div class="gallery-caption-title"><?= $g['title']; ?></div>
                             </div>
@@ -1461,10 +1556,14 @@ function get_service_desc($nama, $map) {
                         <div class="section-label">Cerita Kita</div>
                         <h2>Dari satu kursi barber,<br>sekarang tiga cabang.</h2>
                         <p>
-                            Alvinto Haircut mulai dari tahun 2015 di Mekar Sari, Bogor. Awalnya cuma satu kursi, satu kapster. Sekarang udah tiga cabang dengan tim yang solid dan pelanggan setia dari berbagai usia.
+                            Alvinto Haircut mulai dari tahun 2015 di Sindang Sari, Bogor. Awalnya cuma satu kursi, satu
+                            kapster. Sekarang udah tiga cabang dengan tim yang solid dan pelanggan setia dari berbagai
+                            usia.
                         </p>
                         <p>
-                            Kita spesialis potong rambut pria dan anak. Kapster-kapster kita ngerti model kekinian &mdash; Fade, Undercut, Taper, Mullet, Comma Hair, sampai gaya klasik. Buat anak-anak, ada kursi mobil-mobilan biar nggak rewel.
+                            Kita spesialis potong rambut pria dan anak. Kapster-kapster kita ngerti model kekinian
+                            &mdash; Fade, Undercut, Taper, Mullet, Comma Hair, sampai gaya klasik. Suasana kids
+                            friendly, anak-anak dijamin betah.
                         </p>
 
                         <div class="about-features">
@@ -1479,21 +1578,22 @@ function get_service_desc($nama, $map) {
                                 <div class="about-feature-icon"><i class="bi bi-emoji-smile-fill"></i></div>
                                 <div>
                                     <h4>Kids Friendly</h4>
-                                    <p>Kursi mobil-mobilan buat anak biar anteng dan happy.</p>
+                                    <p>Suasana ramah anak, kapster sabar & telaten nangani si kecil.</p>
                                 </div>
                             </div>
                             <div class="about-feature">
-                                <div class="about-feature-icon"><i class="bi bi-snow"></i></div>
+                                <div class="about-feature-icon"><i class="bi bi-shield-check"></i></div>
                                 <div>
-                                    <h4>Tempat Adem</h4>
-                                    <p>Full AC, bersih, dan peralatan selalu disterilkan.</p>
+                                    <h4>Bersih & Nyaman</h4>
+                                    <p>Tempat terawat, peralatan selalu disterilkan setiap pemakaian.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="about-photo reveal">
-                        <img src="<?= base_url('assets/img/5.webp'); ?>" alt="Tim Kapster Alvinto Haircut Bogor" loading="lazy">
+                        <img src="<?= base_url('assets/img/5.webp'); ?>" alt="Tim Kapster Alvinto Haircut Bogor"
+                            loading="lazy">
                     </div>
                 </div>
             </div>
@@ -1514,15 +1614,36 @@ function get_service_desc($nama, $map) {
                     <div class="branch-card pusat">
                         <div>
                             <div class="branch-badge">Kantor Pusat</div>
-                            <h3 class="branch-name">Mekar Sari</h3>
-                            <p class="branch-address">Blok Mekar Sari Jl. Ledeng No.26, RT.01/RW.07, Kebon Kelapa, Bogor Tengah, 16125</p>
+                            <h3 class="branch-name">Sindang Sari</h3>
+                            <p class="branch-address">Sindang Sari, Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16125
+                            </p>
                             <div class="branch-info">
                                 <span><i class="bi bi-clock"></i> Setiap Hari: 10.00 - 21.00</span>
                                 <span><i class="bi bi-calendar-event"></i> Jumat: 13.00 - 21.00</span>
-                                <span><i class="bi bi-whatsapp"></i> 0856-9148-9851</span>
+                                <span><i class="bi bi-whatsapp"></i>
+                                    <?= substr($wa_number, 0, 4) . '-' . substr($wa_number, 4, 4) . '-' . substr($wa_number, 8); ?></span>
                             </div>
                         </div>
-                        <a href="https://maps.app.goo.gl/7u2TKqKLU15zgUmGA" target="_blank" rel="noopener noreferrer" class="btn-maps">
+                        <a href="https://maps.app.goo.gl/7u2TKqKLU15zgUmGA" target="_blank" rel="noopener noreferrer"
+                            class="btn-maps">
+                            <i class="bi bi-geo-alt"></i> Buka Maps
+                        </a>
+                    </div>
+
+                    <div class="branch-card">
+                        <div>
+                            <div class="branch-badge">Cabang</div>
+                            <h3 class="branch-name">Mekar Sari jl.Ledeng</h3>
+                            <p class="branch-address">Mekar Sari Jl. Ledeng, Kota Bogor, Jawa Barat. Akses mudah &
+                                parkir nyaman.</p>
+                            <div class="branch-info">
+                                <span><i class="bi bi-clock"></i> Setiap Hari: 10.00 - 21.00</span>
+                                <span><i class="bi bi-calendar-event"></i> Jumat: 13.00 - 21.00</span>
+                                <span><i class="bi bi-check-circle"></i> Bersih, Nyaman & Kapster Handal</span>
+                            </div>
+                        </div>
+                        <a href="https://maps.app.goo.gl/FXwmaaArc85Xwtfe9" target="_blank" rel="noopener noreferrer"
+                            class="btn-maps">
                             <i class="bi bi-geo-alt"></i> Buka Maps
                         </a>
                     </div>
@@ -1531,30 +1652,15 @@ function get_service_desc($nama, $map) {
                         <div>
                             <div class="branch-badge">Cabang</div>
                             <h3 class="branch-name">Gunung Batu</h3>
-                            <p class="branch-address">Kawasan Gunung Batu, Kota Bogor, Jawa Barat. Akses mudah & parkir nyaman.</p>
+                            <p class="branch-address">Kawasan Gunung Batu, Kota Bogor, Jawa Barat.</p>
                             <div class="branch-info">
                                 <span><i class="bi bi-clock"></i> Setiap Hari: 10.00 - 21.00</span>
                                 <span><i class="bi bi-calendar-event"></i> Jumat: 13.00 - 21.00</span>
-                                <span><i class="bi bi-check-circle"></i> Full AC & Kapster Handal</span>
+                                <span><i class="bi bi-check-circle"></i> Kids Friendly & Fasilitas Lengkap</span>
                             </div>
                         </div>
-                        <a href="https://maps.app.goo.gl/bDwRTvBbMSpia8YEA" target="_blank" rel="noopener noreferrer" class="btn-maps">
-                            <i class="bi bi-geo-alt"></i> Buka Maps
-                        </a>
-                    </div>
-
-                    <div class="branch-card">
-                        <div>
-                            <div class="branch-badge">Cabang</div>
-                            <h3 class="branch-name">Kebon Kelapa</h3>
-                            <p class="branch-address">Kawasan Kebon Kelapa, Bogor Tengah, Kota Bogor, Jawa Barat.</p>
-                            <div class="branch-info">
-                                <span><i class="bi bi-clock"></i> Setiap Hari: 10.00 - 21.00</span>
-                                <span><i class="bi bi-calendar-event"></i> Jumat: 13.00 - 21.00</span>
-                                <span><i class="bi bi-check-circle"></i> Kursi Anak & Fasilitas Lengkap</span>
-                            </div>
-                        </div>
-                        <a href="https://maps.app.goo.gl/FXwmaaArc85Xwtfe9" target="_blank" rel="noopener noreferrer" class="btn-maps">
+                        <a href="https://maps.app.goo.gl/bDwRTvBbMSpia8YEA" target="_blank" rel="noopener noreferrer"
+                            class="btn-maps">
                             <i class="bi bi-geo-alt"></i> Buka Maps
                         </a>
                     </div>
@@ -1574,24 +1680,29 @@ function get_service_desc($nama, $map) {
 
                 <div class="reviews-grid reveal">
                     <div class="review-card">
-                        <p class="review-quote">Udah langganan dari jaman bujang sampe sekarang bawa anak potong di sini. Kapsternya ramah banget, anak saya ga pernah nangis karena ada kursi mobilannya. Mantap Alvinto!</p>
+                        <p class="review-quote">Udah langganan dari jaman bujang sampe sekarang bawa anak potong di
+                            sini. Kapsternya ramah banget, anak saya ga pernah nangis karena suasananya kids friendly.
+                            Mantap Alvinto!</p>
                         <div>
                             <div class="review-author">Rian Pratama</div>
-                            <div class="review-branch">Cabang Mekar Sari</div>
+                            <div class="review-branch">Cabang Sindang Sari</div>
                         </div>
                     </div>
                     <div class="review-card">
-                        <p class="review-quote">Potongan fadernya sangat rapi dan gradasinya halus. Kapsternya ngerti model rambut jaman sekarang. Tempatnya adem ber-AC, harga juga sangat terjangkau di kantong.</p>
+                        <p class="review-quote">Potongan fadernya sangat rapi dan gradasinya halus. Kapsternya ngerti
+                            model rambut jaman sekarang. Tempatnya bersih dan nyaman, harga juga sangat terjangkau di
+                            kantong.</p>
                         <div>
                             <div class="review-author">Dimas Nugraha</div>
                             <div class="review-branch">Cabang Gunung Batu</div>
                         </div>
                     </div>
                     <div class="review-card">
-                        <p class="review-quote">Pelayanan cepat tapi hasilnya tetap detail dan rapi. Buka sampai jam 9 malam jadi enak pulang kerja bisa mampir dulu. Barbershop rekomendasi banget di Bogor!</p>
+                        <p class="review-quote">Pelayanan cepat tapi hasilnya tetap detail dan rapi. Buka sampai jam 9
+                            malam jadi enak pulang kerja bisa mampir dulu. Barbershop rekomendasi banget di Bogor!</p>
                         <div>
                             <div class="review-author">Andi Saputra</div>
-                            <div class="review-branch">Cabang Kebon Kelapa</div>
+                            <div class="review-branch">Cabang Mekar Sari</div>
                         </div>
                     </div>
                 </div>
@@ -1615,7 +1726,8 @@ function get_service_desc($nama, $map) {
                             <i class="bi bi-chevron-down"></i>
                         </div>
                         <div class="faq-answer">
-                            <div class="faq-answer-inner">Langsung dateng aja (walk-in) ke cabang mana pun. Kalau mau tanya antrean atau info cabang, bisa chat WhatsApp kita di 0856-9148-9851.</div>
+                            <div class="faq-answer-inner">Langsung dateng aja (walk-in) ke cabang mana pun. Kalau mau
+                                tanya antrean atau info cabang, bisa chat WhatsApp kita di 0878-7070-8254.</div>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1624,7 +1736,9 @@ function get_service_desc($nama, $map) {
                             <i class="bi bi-chevron-down"></i>
                         </div>
                         <div class="faq-answer">
-                            <div class="faq-answer-inner">Buka setiap hari <strong>10.00 - 21.00 WIB</strong>. Khusus <strong>Jumat</strong>, buka setelah Jumatan (13.00 - 21.00 WIB).</div>
+                            <div class="faq-answer-inner">Buka setiap hari <strong>10.00 - 21.00 WIB</strong>. Khusus
+                                <strong>Jumat</strong>, buka setelah Jumatan (13.00 - 21.00 WIB).
+                            </div>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1633,7 +1747,8 @@ function get_service_desc($nama, $map) {
                             <i class="bi bi-chevron-down"></i>
                         </div>
                         <div class="faq-answer">
-                            <div class="faq-answer-inner">Bisa banget! Kita spesialis Men & Kids. Ada kursi mobil-mobilan khusus biar anak anteng dan seneng pas dicukur. Kapsternya sabar dan telaten.</div>
+                            <div class="faq-answer-inner">Bisa banget! Kita spesialis Men & Kids. Suasana kids
+                                friendly biar anak anteng dan seneng pas dicukur. Kapsternya sabar dan telaten.</div>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1642,7 +1757,10 @@ function get_service_desc($nama, $map) {
                             <i class="bi bi-chevron-down"></i>
                         </div>
                         <div class="faq-answer">
-                            <div class="faq-answer-inner">Ada 3 cabang: <strong>Mekar Sari</strong> (pusat), <strong>Gunung Batu</strong>, dan <strong>Kebon Kelapa</strong>. Scroll ke bagian Cabang buat lihat peta Google Maps masing-masing.</div>
+                            <div class="faq-answer-inner">Ada 3 cabang: <strong>Sindang Sari</strong> (pusat),
+                                <strong>Mekar Sari jl.Ledeng</strong>, dan <strong>Gunung Batu</strong>. Scroll ke
+                                bagian Cabang buat lihat peta Google Maps masing-masing.
+                            </div>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1651,7 +1769,8 @@ function get_service_desc($nama, $map) {
                             <i class="bi bi-chevron-down"></i>
                         </div>
                         <div class="faq-answer">
-                            <div class="faq-answer-inner">Cash dan non-tunai (QRIS / Transfer Bank). Semua tercatat otomatis lewat sistem kasir Alvinto.</div>
+                            <div class="faq-answer-inner">Cash dan non-tunai (QRIS / Transfer Bank). Semua tercatat
+                                otomatis lewat sistem kasir Alvinto.</div>
                         </div>
                     </div>
                 </div>
@@ -1684,16 +1803,20 @@ function get_service_desc($nama, $map) {
                         <span class="footer-brand-name">Alvinto Haircut</span>
                     </div>
                     <p class="footer-desc">
-                        Barbershop Specialist Men & Kids di Kota Bogor sejak 2015. &ldquo;...karena ganteng itu butuh proses!&rdquo;
+                        Barbershop Specialist Men & Kids di Kota Bogor sejak 2015. &ldquo;...karena ganteng itu butuh
+                        proses!&rdquo;
                     </p>
                     <div class="footer-social">
-                        <a href="<?= $instagram_url; ?>" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram" aria-label="Instagram">
+                        <a href="<?= $instagram_url; ?>" target="_blank" rel="noopener noreferrer" class="social-link"
+                            title="Instagram" aria-label="Instagram">
                             <i class="bi bi-instagram"></i>
                         </a>
-                        <a href="<?= $tiktok_url; ?>" target="_blank" rel="noopener noreferrer" class="social-link" title="TikTok" aria-label="TikTok">
+                        <a href="<?= $tiktok_url; ?>" target="_blank" rel="noopener noreferrer" class="social-link"
+                            title="TikTok" aria-label="TikTok">
                             <i class="bi bi-tiktok"></i>
                         </a>
-                        <a href="<?= $wa_link; ?>" target="_blank" rel="noopener noreferrer" class="social-link" title="WhatsApp" aria-label="WhatsApp">
+                        <a href="<?= $wa_link; ?>" target="_blank" rel="noopener noreferrer" class="social-link"
+                            title="WhatsApp" aria-label="WhatsApp">
                             <i class="bi bi-whatsapp"></i>
                         </a>
                     </div>
@@ -1710,20 +1833,23 @@ function get_service_desc($nama, $map) {
 
                 <div class="footer-col">
                     <h4>Cabang</h4>
-                    <a href="https://maps.app.goo.gl/7u2TKqKLU15zgUmGA" target="_blank" rel="noopener noreferrer">Mekar Sari (Pusat)</a>
-                    <a href="https://maps.app.goo.gl/bDwRTvBbMSpia8YEA" target="_blank" rel="noopener noreferrer">Gunung Batu</a>
-                    <a href="https://maps.app.goo.gl/FXwmaaArc85Xwtfe9" target="_blank" rel="noopener noreferrer">Kebon Kelapa</a>
+                    <a href="https://maps.app.goo.gl/7u2TKqKLU15zgUmGA" target="_blank"
+                        rel="noopener noreferrer">Sindang Sari (Pusat)</a>
+                    <a href="https://maps.app.goo.gl/FXwmaaArc85Xwtfe9" target="_blank" rel="noopener noreferrer">Mekar
+                        Sari jl.Ledeng</a>
+                    <a href="https://maps.app.goo.gl/bDwRTvBbMSpia8YEA" target="_blank" rel="noopener noreferrer">Gunung
+                        Batu</a>
                 </div>
 
                 <div class="footer-col">
                     <h4>Kontak</h4>
                     <div class="footer-contact-item">
                         <i class="bi bi-geo-alt-fill"></i>
-                        <span>Blok Mekar Sari Jl. Ledeng No.26, Kebon Kelapa, Bogor Tengah 16125</span>
+                        <span>Sindang Sari, Kecamatan Bogor Tengah, Kota Bogor 16125</span>
                     </div>
                     <div class="footer-contact-item">
                         <i class="bi bi-whatsapp"></i>
-                        <span>0856-9148-9851</span>
+                        <span>0878-7070-8254</span>
                     </div>
                     <div class="footer-contact-item">
                         <i class="bi bi-clock"></i>
@@ -1739,7 +1865,8 @@ function get_service_desc($nama, $map) {
     </footer>
 
     <!-- Floating WhatsApp -->
-    <a href="<?= $wa_link; ?>" target="_blank" rel="noopener noreferrer" class="floating-wa" title="Chat WhatsApp" aria-label="Chat WhatsApp">
+    <a href="<?= $wa_link; ?>" target="_blank" rel="noopener noreferrer" class="floating-wa" title="Chat WhatsApp"
+        aria-label="Chat WhatsApp">
         <i class="bi bi-whatsapp"></i>
         <span>Chat</span>
     </a>
@@ -1766,7 +1893,7 @@ function get_service_desc($nama, $map) {
             themeIcon.className = isDark ? 'bi bi-sun-fill' : 'bi bi-moon-fill';
         }
 
-        themeToggle.addEventListener('click', function() {
+        themeToggle.addEventListener('click', function () {
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             if (isDark) {
                 document.documentElement.removeAttribute('data-theme');
@@ -1784,15 +1911,15 @@ function get_service_desc($nama, $map) {
         const mobileToggle = document.getElementById('mobileToggle');
         const navMenu = document.getElementById('navMenu');
 
-        mobileToggle.addEventListener('click', function() {
+        mobileToggle.addEventListener('click', function () {
             navMenu.classList.toggle('show');
             var icon = mobileToggle.querySelector('i');
             icon.classList.toggle('bi-list');
             icon.classList.toggle('bi-x-lg');
         });
 
-        navMenu.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function() {
+        navMenu.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
                 navMenu.classList.remove('show');
                 var icon = mobileToggle.querySelector('i');
                 icon.classList.add('bi-list');
@@ -1801,13 +1928,13 @@ function get_service_desc($nama, $map) {
         });
 
         // ---- FAQ Accordion ----
-        document.querySelectorAll('.faq-question').forEach(function(q) {
-            q.addEventListener('click', function() {
+        document.querySelectorAll('.faq-question').forEach(function (q) {
+            q.addEventListener('click', function () {
                 var item = q.parentElement;
                 var answer = item.querySelector('.faq-answer');
                 var isOpen = item.classList.contains('open');
 
-                document.querySelectorAll('.faq-item').forEach(function(fi) {
+                document.querySelectorAll('.faq-item').forEach(function (fi) {
                     fi.classList.remove('open');
                     fi.querySelector('.faq-answer').style.maxHeight = null;
                 });
@@ -1840,14 +1967,14 @@ function get_service_desc($nama, $map) {
             document.body.style.overflow = '';
         }
 
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
         });
 
         // ---- Scroll Reveal ----
         var reveals = document.querySelectorAll('.reveal');
-        var observer = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                     observer.unobserve(entry.target);
@@ -1855,8 +1982,9 @@ function get_service_desc($nama, $map) {
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-        reveals.forEach(function(el) { observer.observe(el); });
+        reveals.forEach(function (el) { observer.observe(el); });
     </script>
 
 </body>
+
 </html>
